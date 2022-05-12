@@ -5,6 +5,7 @@ import router from './router'
 import { createPinia } from 'pinia'
 
 import './server'
+import './permission'
 
 // 重置css样式
 import 'normalize.css'

@@ -1,15 +1,15 @@
-import axios, { AxiosInstance } from 'axios'
+import axios, { AxiosInstance, AxiosError } from 'axios'
 
-import { ElLoading } from 'element-plus'
+import { ElLoading, ElMessage } from 'element-plus'
 
-import { ZRequestInterceptors, ZRequestConfig } from './types'
+import { ZRequestInterceptors, ZRequestConfig, IErrorResult } from './types'
 
 const DEFAULT_LOADING = true // loading默认状态
 
 class Request {
   private instance?: AxiosInstance // 保存axios实例
   private interceptors?: ZRequestInterceptors // 在创建axios实例的时，可传入拦截器
-  loading?: any
+  private loading?: any
   private showLoading?: boolean
 
   constructor(config: ZRequestConfig) {
@@ -49,7 +49,7 @@ class Request {
         // 失败的时候关闭loading
         this.loading?.close()
         console.log(err)
-        return err
+        return Promise.reject(err)
       }
     )
     this.instance.interceptors.response.use(
@@ -57,16 +57,17 @@ class Request {
         this.loading?.close()
         return config
       },
-      (err) => {
+      (err: AxiosError<IErrorResult>) => {
+        ElMessage.error(err.response?.data.message || '失败')
+
         this.loading?.close()
-        console.log(err)
-        return err
+        return Promise.reject(err)
       }
     )
   }
 
   // 2. 封装request方法，可以传入不同的参数，从而发送不同的请求
-  request<T>(config: ZRequestConfig): Promise<T> {
+  private request<T = any>(config: ZRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
       this.instance
         ?.request(config)

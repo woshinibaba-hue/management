@@ -23,4 +23,10 @@ interface IDataResult<T = any> {
   message?: string
 }
 
-export { ZRequestInterceptors, ZRequestConfig, IDataResult }
+interface IErrorResult<T = any> {
+  code: number
+  message: string
+  data?: T
+}
+
+export { ZRequestInterceptors, ZRequestConfig, IDataResult, IErrorResult }
