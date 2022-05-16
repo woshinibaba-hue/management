@@ -2,7 +2,12 @@ import axios, { AxiosInstance, AxiosError } from 'axios'
 
 import { ElLoading, ElMessage } from 'element-plus'
 
-import { ZRequestInterceptors, ZRequestConfig, IErrorResult } from './types'
+import {
+  ZRequestInterceptors,
+  ZRequestConfig,
+  IErrorResult,
+  IDataResult
+} from './types'
 
 const DEFAULT_LOADING = true // loading默认状态
 
@@ -47,27 +52,33 @@ class Request {
       },
       (err) => {
         // 失败的时候关闭loading
-        this.loading?.close()
+        setTimeout(() => {
+          this.loading?.close()
+        }, 1000)
         console.log(err)
         return Promise.reject(err)
       }
     )
     this.instance.interceptors.response.use(
       (config) => {
-        this.loading?.close()
+        setTimeout(() => {
+          this.loading?.close()
+        }, 1000)
         return config
       },
       (err: AxiosError<IErrorResult>) => {
         ElMessage.error(err.response?.data.message || '失败')
 
-        this.loading?.close()
+        setTimeout(() => {
+          this.loading?.close()
+        }, 1000)
         return Promise.reject(err)
       }
     )
   }
 
   // 2. 封装request方法，可以传入不同的参数，从而发送不同的请求
-  private request<T = any>(config: ZRequestConfig): Promise<T> {
+  private request<T = any>(config: ZRequestConfig): Promise<IDataResult<T>> {
     return new Promise((resolve, reject) => {
       this.instance
         ?.request(config)
@@ -80,19 +91,19 @@ class Request {
     })
   }
 
-  get<T = any>(config: ZRequestConfig): Promise<T> {
+  get<T = any>(config: ZRequestConfig): Promise<IDataResult<T>> {
     return this.request<T>({ ...config, method: 'GET' })
   }
 
-  post<T = any>(config: ZRequestConfig): Promise<T> {
+  post<T = any>(config: ZRequestConfig): Promise<IDataResult<T>> {
     return this.request<T>({ ...config, method: 'POST' })
   }
 
-  put<T = any>(config: ZRequestConfig): Promise<T> {
+  put<T = any>(config: ZRequestConfig): Promise<IDataResult<T>> {
     return this.request<T>({ ...config, method: 'PUT' })
   }
 
-  delete<T = any>(config: ZRequestConfig): Promise<T> {
+  delete<T = any>(config: ZRequestConfig): Promise<IDataResult<T>> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
 }

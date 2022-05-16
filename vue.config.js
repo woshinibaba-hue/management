@@ -4,6 +4,9 @@ const AutoImport = require('unplugin-auto-import/webpack')
 const Components = require('unplugin-vue-components/webpack')
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 
+// 自动导入图标 iconify 图标库
+// const Icons = require('unplugin-icons/webpack')
+
 module.exports = {
   configureWebpack: {
     plugins: [
@@ -13,6 +16,11 @@ module.exports = {
       Components({
         resolvers: [ElementPlusResolver()]
       })
+      // Icons({
+      //   compiler: 'vue3',
+      // 自动安装
+      //   autoInstall: true
+      // })
     ]
   },
   outputDir: './build',
