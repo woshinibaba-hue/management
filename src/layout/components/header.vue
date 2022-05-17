@@ -6,12 +6,7 @@
       </el-icon>
     </div>
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-      <el-breadcrumb-item>
-        <a href="/">promotion management</a>
-      </el-breadcrumb-item>
-      <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-      <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
+      <el-breadcrumb-item>面包屑</el-breadcrumb-item>
     </el-breadcrumb>
   </div>
 </template>
@@ -24,7 +19,7 @@ import { Fold, Expand } from '@element-plus/icons-vue'
 const collapseState = useCollapse()
 
 const handleFold = () => {
-  collapseState.toggleCollapse()
+  // collapseState.toggleCollapse()
 }
 </script>
 

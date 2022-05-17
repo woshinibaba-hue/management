@@ -15,6 +15,8 @@ router.beforeEach((to) => {
   if (user && user.token) {
     if (to.path === '/login') {
       return '/'
+    } else {
+      return true
     }
   } else {
     // 用户没有登录，跳转至登录页

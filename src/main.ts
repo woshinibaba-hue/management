@@ -4,6 +4,8 @@ import router from './router'
 
 import { createPinia } from 'pinia'
 
+import { useLoginStore } from './store/useLoginStore'
+
 import './server'
 import './permission'
 
@@ -13,4 +15,13 @@ import '@/assets/css/base.less'
 
 import 'element-plus/theme-chalk/index.css'
 
-createApp(App).use(router).use(createPinia()).mount('#app')
+const app = createApp(App)
+
+app.use(createPinia())
+
+const loginStore = useLoginStore()
+loginStore.initAction()
+
+app.use(router)
+
+app.mount('#app')

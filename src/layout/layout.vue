@@ -1,21 +1,18 @@
 <template>
   <div class="layout">
-    <el-row>
-      <el-col :span="collapseStore.isCollapse ? 1 : 3">
+    <el-container>
+      <el-aside width="200px">
         <Menu />
-      </el-col>
-      <el-col :span="collapseStore.isCollapse ? 23 : 21">
+      </el-aside>
+      <el-container>
         <Main />
-      </el-col>
-    </el-row>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useCollapse } from '@/store'
 import { Menu, Main } from './components'
-
-const collapseStore = useCollapse()
 </script>
 
 <style scoped lang="less">
@@ -23,12 +20,12 @@ const collapseStore = useCollapse()
   width: 100%;
   height: 100%;
 
-  .el-row {
+  .el-container {
+    width: 100%;
     height: 100%;
 
-    .el-col {
-      transition: all 0.3s;
-      overflow: hidden;
+    .main {
+      width: 100%;
     }
   }
 }

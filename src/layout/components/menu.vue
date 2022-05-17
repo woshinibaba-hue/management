@@ -1,30 +1,38 @@
 <template>
   <div class="menu">
     <el-menu
+      router
+      unique-opened
       default-active="2"
       class="el-menu-vertical-demo"
       :collapse="collapseState.isCollapse"
     >
-      <el-menu-item index="1">
-        <el-icon><Location /></el-icon>
-        <span>嗯嗯嗯</span>
-      </el-menu-item>
-      <el-sub-menu index="2">
-        <template #title>
-          <span>哈哈哈</span>
+      <template v-for="menu in loginState.menu" :key="menu.id">
+        <template v-if="menu.type === 1">
+          <el-sub-menu :index="menu.id + ''">
+            <template #title>
+              <span>{{ menu.name }}</span>
+            </template>
+            <template v-for="subMenu in menu.children" :key="subMenu.id">
+              <template v-if="subMenu.type === 2">
+                <el-menu-item-group>
+                  <el-menu-item :index="subMenu.url">
+                    <span>{{ subMenu.name }}</span>
+                  </el-menu-item>
+                </el-menu-item-group>
+              </template>
+            </template>
+          </el-sub-menu>
         </template>
-        <el-menu-item index="1-1"> item one </el-menu-item>
-        <el-menu-item index="1-2">item one</el-menu-item>
-      </el-sub-menu>
+      </template>
     </el-menu>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Location } from '@element-plus/icons-vue'
-
-import { useCollapse } from '@/store'
+import { useCollapse, useLoginStore } from '@/store'
 const collapseState = useCollapse()
+const loginState = useLoginStore()
 </script>
 
 <style scoped lang="less">

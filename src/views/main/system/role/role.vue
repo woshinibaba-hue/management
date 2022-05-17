@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <h1>首页</h1>
+  <div class="role">
+    <h2>角色管理</h2>
   </div>
 </template>
 

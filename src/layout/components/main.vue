@@ -1,7 +1,9 @@
 <template>
   <div class="main">
     <Header />
-    <router-view />
+    <div class="content">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -12,7 +14,10 @@ import Header from './header.vue'
 <style scoped lang="less">
 .main {
   height: 100%;
-
   background-color: #eff1f4;
+
+  .content {
+    padding: 40px;
+  }
 }
 </style>
