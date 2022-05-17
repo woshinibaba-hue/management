@@ -4,6 +4,8 @@ import storage from '@/utils/storage'
 
 import { ILoginRes } from '@/server/login/types'
 
+import { initRouter } from '@/utils/map_router'
+
 // 白名单页面，不需要token就能访问的页面
 const writeList = ['/login', '/404']
 
@@ -16,7 +18,11 @@ router.beforeEach((to) => {
     if (to.path === '/login') {
       return '/'
     } else {
-      return true
+      if (to.path === '/main') {
+        return initRouter?.path
+      } else {
+        return true
+      }
     }
   } else {
     // 用户没有登录，跳转至登录页

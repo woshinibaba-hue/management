@@ -5,7 +5,7 @@ import { login } from '@/server/login'
 import { getUserMenu } from '@/server/menu'
 
 import storage from '@/utils/storage'
-import { mapRouter } from '@/utils/map_router'
+import { mapRouter, initRouter } from '@/utils/map_router'
 
 import router from '@/router'
 
@@ -32,17 +32,8 @@ export const useLoginStore = defineStore('login', {
 
       storage.set('userResult', res.data)
 
-      // const menus = await getUserMenu()
-
-      // storage.set('menu_list', menus.data.menuList)
-
-      // const routes = mapRouter(menus.data.menuList)
-
       // 登录成功获取当前用户菜单
       this.getMenuAction()
-      // router.push('/')
-
-      // routes.forEach((item) => router.addRoute(item))
 
       ElMessage.success('登录成功')
     },
@@ -61,7 +52,7 @@ export const useLoginStore = defineStore('login', {
       const routes = mapRouter(menu)
       routes.forEach((route) => router.addRoute('layout', route))
 
-      router.push('/')
+      router.push({ name: initRouter?.name })
     },
 
     initAction() {
@@ -71,6 +62,15 @@ export const useLoginStore = defineStore('login', {
       this.user = userResult
       this.menu = menuList
       this.getMenuAction()
+    },
+
+    logout() {
+      this.user = null
+      this.menu = []
+      storage.remove('userResult')
+      storage.remove('menu_list')
+
+      router.replace('/login')
     }
   }
 })

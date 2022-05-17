@@ -3,7 +3,7 @@
     <el-menu
       router
       unique-opened
-      default-active="2"
+      :default-active="route.path"
       class="el-menu-vertical-demo"
       :collapse="collapseState.isCollapse"
     >
@@ -30,9 +30,12 @@
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import { useCollapse, useLoginStore } from '@/store'
 const collapseState = useCollapse()
 const loginState = useLoginStore()
+
+const route = useRoute()
 </script>
 
 <style scoped lang="less">

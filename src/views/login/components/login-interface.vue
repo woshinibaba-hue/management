@@ -54,7 +54,7 @@ if (user) {
   formData.password = user.password
 }
 
-const remember = ref(false)
+const remember = ref(true)
 
 const loginStore = useLoginStore()
 

@@ -52,26 +52,20 @@ class Request {
       },
       (err) => {
         // 失败的时候关闭loading
-        setTimeout(() => {
-          this.loading?.close()
-        }, 1000)
+        this.loading?.close()
         console.log(err)
         return Promise.reject(err)
       }
     )
     this.instance.interceptors.response.use(
       (config) => {
-        setTimeout(() => {
-          this.loading?.close()
-        }, 1000)
+        this.loading?.close()
         return config
       },
       (err: AxiosError<IErrorResult>) => {
         ElMessage.error(err.response?.data.message || '失败')
 
-        setTimeout(() => {
-          this.loading?.close()
-        }, 1000)
+        this.loading?.close()
         return Promise.reject(err)
       }
     )

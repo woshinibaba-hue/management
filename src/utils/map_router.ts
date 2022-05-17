@@ -2,7 +2,10 @@
 import { IMenu } from '@/server/menu/type'
 import { RouteRecordRaw } from 'vue-router'
 
+let initRouter: RouteRecordRaw | null = null
+
 export function mapRouter(userMenu: IMenu[]) {
+  initRouter = null
   // 1. 需要注册的路由
   const routers: RouteRecordRaw[] = []
 
@@ -29,7 +32,10 @@ export function mapRouter(userMenu: IMenu[]) {
       if (route.type === 2) {
         // 将路由信息添加到 routers 中
         const router = allRouter.find((item) => item.path === route.url)
-        router && routers.push(router)
+        if (router) {
+          if (!initRouter) initRouter = router
+          routers.push(router)
+        }
       } else {
         // 如果不是菜单，则递归获取子菜单
         _recurRoute(route.children)
@@ -41,3 +47,5 @@ export function mapRouter(userMenu: IMenu[]) {
 
   return routers
 }
+
+export { initRouter }
