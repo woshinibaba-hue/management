@@ -12,4 +12,5 @@ export interface ITableConfig {
   title: string
   showFooter?: boolean
   addBtnText: string
+  pageName: string
 }

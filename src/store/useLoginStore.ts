@@ -5,7 +5,11 @@ import { login } from '@/server/login'
 import { getUserMenu } from '@/server/menu'
 
 import storage from '@/utils/storage'
-import { mapRouter, initRouter } from '@/utils/map_router'
+import {
+  mapRouter,
+  initRouter,
+  mapMenusToPermissions
+} from '@/utils/map_router'
 
 import router from '@/router'
 
@@ -15,6 +19,7 @@ import * as menuTypes from '@/server/menu/type'
 interface LoginStore {
   user: types.ILoginRes | null
   menu: menuTypes.IMenu[]
+  permissions: string[]
 }
 
 const initRouters = ['login', 'layout', 'not-found', 'main']
@@ -23,7 +28,8 @@ export const useLoginStore = defineStore('login', {
   state(): LoginStore {
     return {
       user: null,
-      menu: []
+      menu: [],
+      permissions: []
     }
   },
 
@@ -62,6 +68,11 @@ export const useLoginStore = defineStore('login', {
       })
 
       routes.forEach((route) => router.addRoute('layout', route))
+
+      // 获取当前用户的所有按钮权限
+      const permissions = mapMenusToPermissions(menu)
+
+      this.permissions = permissions
 
       router.push({ name: initRouter?.name })
     },

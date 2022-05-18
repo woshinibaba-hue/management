@@ -4,6 +4,7 @@ import { RouteRecordRaw } from 'vue-router'
 
 let initRouter: RouteRecordRaw | null = null
 
+// 获取需要注册的路由
 export function mapRouter(userMenu: IMenu[]) {
   initRouter = null
   // 1. 需要注册的路由
@@ -46,6 +47,27 @@ export function mapRouter(userMenu: IMenu[]) {
   _recurRoute(userMenu)
 
   return routers
+}
+
+// 获取按钮权限
+export function mapMenusToPermissions(userMenu: IMenu[]) {
+  const permissions: string[] = []
+
+  const _recurPermission = (menu: IMenu[]) => {
+    for (const item of menu) {
+      if (item.type !== 3) {
+        // 如果不是3表示还存在子级菜单，递归遍历
+        _recurPermission(item.children ?? [])
+      } else {
+        // 当type为3表示为按钮权限
+        item.permission && permissions.push(item.permission)
+      }
+    }
+  }
+
+  _recurPermission(userMenu)
+
+  return permissions
 }
 
 export { initRouter }

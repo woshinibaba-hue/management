@@ -48,5 +48,6 @@ export const tableConfig: ITableConfig = {
   showColumnSelect: false,
   title: '用户管理',
   showFooter: true,
-  addBtnText: '添加用户'
+  addBtnText: '添加用户',
+  pageName: 'user'
 }
