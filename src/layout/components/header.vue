@@ -58,6 +58,7 @@ const logout = () => {
   height: 60px;
   padding-right: 25px;
   background-color: #fff;
+  margin-bottom: 10px;
 
   > div {
     display: flex;

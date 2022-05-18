@@ -17,6 +17,8 @@ interface LoginStore {
   menu: menuTypes.IMenu[]
 }
 
+const initRouters = ['login', 'layout', 'not-found', 'main']
+
 export const useLoginStore = defineStore('login', {
   state(): LoginStore {
     return {
@@ -50,6 +52,15 @@ export const useLoginStore = defineStore('login', {
         storage.set('menu_list', menu)
       }
       const routes = mapRouter(menu)
+
+      // 先删除所有的动态注册的路由
+      router.getRoutes().forEach((item) => {
+        if (item.name) {
+          !initRouters.includes(<string>item.name) &&
+            router.removeRoute(item.name)
+        }
+      })
+
       routes.forEach((route) => router.addRoute('layout', route))
 
       router.push({ name: initRouter?.name })

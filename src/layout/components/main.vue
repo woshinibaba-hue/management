@@ -21,27 +21,40 @@ import Header from './header.vue'
   background-color: #eff1f4;
 
   .content {
-    height: calc(100% - 60px);
+    height: calc(100% - 60px - 10px);
     overflow: hidden;
     padding: 40px;
+    background-color: #fff;
+    overflow-y: auto;
   }
 
   .view-enter-active {
-    animation: enter 0.5s ease-in-out;
+    animation: enter 0.3s ease-in-out;
   }
 
   .view-leave-active {
-    animation: enter 0.5s ease-in-out reverse;
+    animation: leave 0.3s ease-in-out;
   }
 
   @keyframes enter {
     0% {
       opacity: 0;
-      transform: skew(0deg, -10deg);
+      transform: translateX(-300px);
     }
 
     100% {
       opacity: 1;
+    }
+  }
+
+  @keyframes leave {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateX(300px);
     }
   }
 }
