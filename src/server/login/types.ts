@@ -10,4 +10,5 @@ export interface ILoginRes {
   avatar: string
   referral: string
   token: string
+  auto: number
 }

@@ -17,7 +17,8 @@ import { LoginInterface } from './components'
 
   overflow: hidden;
 
-  background: url(~@/assets/images/login-bg.jpg) no-repeat center;
+  // background: url(~@/assets/images/login-bg.jpg) no-repeat center;
+  background: url(~@/assets/images/bg_login.png) no-repeat center;
   background-size: cover;
 
   &::after {
@@ -26,7 +27,7 @@ import { LoginInterface } from './components'
     position: absolute;
     width: 100%;
     height: 100%;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(6px);
   }
 
   .interface {
