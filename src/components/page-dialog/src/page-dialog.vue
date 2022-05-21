@@ -1,6 +1,11 @@
 <template>
   <div class="dialog">
-    <el-dialog v-model="dialogFormVisible" :title="title" @closed="closed">
+    <el-dialog
+      v-model="dialogFormVisible"
+      :title="title"
+      @closed="closed"
+      destroy-on-close
+    >
       <Form v-bind="formConfig" v-model="formData" ref="formRef" />
       <template #footer>
         <span class="dialog-footer">
@@ -13,21 +18,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect, defineProps, defineEmits } from 'vue'
+import { ref, watch, defineProps, defineEmits } from 'vue'
 
 import { Form } from '@/base_components/Form'
 
 import { FormConfig } from '@/base_components/Form/types'
+import * as userTypes from '@/server/users/types'
 
 type IProps = {
   modelValue: boolean
   formConfig: FormConfig
-  title: string
+  title?: string
   pageName: string
+  defaultFormData?: userTypes.IUser
 }
 
 type IEmits = {
   (e: 'update:modelValue', modelValue: boolean): void
+  (e: 'confirm', formData: any): void
 }
 
 const props = defineProps<IProps>()
@@ -36,9 +44,25 @@ const emits = defineEmits<IEmits>()
 // 打开关闭弹窗
 const dialogFormVisible = ref<boolean>(props.modelValue)
 
-watchEffect(() => {
-  dialogFormVisible.value = props.modelValue
-})
+watch(
+  () => props.modelValue,
+  () => {
+    dialogFormVisible.value = props.modelValue
+  }
+)
+
+const formData = ref<any>({})
+
+watch(
+  () => props.defaultFormData,
+  () => {
+    props.formConfig.formItems.forEach((item) => {
+      if (props.defaultFormData) {
+        formData.value[item.field] = props.defaultFormData[item.field]
+      }
+    })
+  }
+)
 
 const formRef = ref<InstanceType<typeof Form>>()
 
@@ -48,21 +72,16 @@ const closed = (isConfirm?: number) => {
     formRef.value?.verifyForm((isValid) => {
       if (isValid) {
         emits('update:modelValue', false)
+        emits('confirm', formData.value)
       }
     })
   } else {
     emits('update:modelValue', false)
-    // 清空表单校验结果
+    // 清空表单校验结果以及修改的表单值
     formRef.value?.removeFormError()
+    formRef.value?.clearFormData()
   }
 }
-
-// 表单数据
-const formData = ref({
-  username: '',
-  email: '',
-  mobile: ''
-})
 </script>
 
 <style scoped lang="less"></style>

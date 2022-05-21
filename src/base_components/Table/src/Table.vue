@@ -27,7 +27,12 @@
           align="center"
         />
         <template v-for="item in tableConfig" :key="item.prop">
-          <el-table-column v-bind="item" align="center" show-overflow-tooltip>
+          <el-table-column
+            v-bind="item"
+            align="center"
+            show-overflow-tooltip
+            v-if="item.slotName !== 'handler' || isHandler"
+          >
             <template #default="scope">
               <!-- 动态具名插槽 通过传递的插槽名称来实现 scope 将当前行数据通过作用域插槽传递出去 外部可通过 #defalut="{ scope }(作用域插槽数据的名称)" 来获取 -->
               <slot :name="item.slotName" :scope="scope.row">
@@ -39,19 +44,21 @@
         </template>
       </el-table>
     </div>
-    <div class="footer" v-if="showFooter">
+    <div class="footer" v-if="showFooter && isQuery">
       <el-pagination
         :page-sizes="[10, 20, 30, 40]"
         background
         layout="total, sizes, prev, pager, next, jumper"
-        :total="20"
+        :total="total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue'
+import { defineProps, defineEmits, withDefaults } from 'vue'
 
 import { IPropType } from '../types'
 
@@ -59,12 +66,35 @@ interface IProps {
   tableConfig: IPropType[]
   showColumnSelection?: boolean
   showColumnIndex?: boolean
-  tableData: any[]
+  tableData?: any[]
   title?: string
   showFooter?: boolean
+  isHandler?: boolean
+  isQuery?: boolean
+  total?: number
 }
 
-withDefaults(defineProps<IProps>(), {})
+type IEmits = {
+  (e: 'changeSize', currentSize: number): void
+  (e: 'changePage', currentPage: number): void
+}
+
+withDefaults(defineProps<IProps>(), {
+  tableData: () => [],
+  total: 0,
+  isHandler: true,
+  isQuery: true
+})
+
+const emits = defineEmits<IEmits>()
+
+const handleSizeChange = (currentSize: number) => {
+  emits('changeSize', currentSize)
+}
+
+const handleCurrentChange = (currentPage: number) => {
+  emits('changePage', currentPage)
+}
 </script>
 
 <style scoped lang="less">

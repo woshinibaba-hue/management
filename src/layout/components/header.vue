@@ -17,7 +17,7 @@
           :size="40"
           :src="loginStatore.user?.avatar ?? defaultAcatar"
         />
-        <span class="name">{{ loginStatore.user?.username }}</span>
+        <span class="name">{{ loginStatore.user?.username }} 欢迎回来</span>
       </span>
       <template #dropdown>
         <el-dropdown-menu>

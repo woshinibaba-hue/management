@@ -1,8 +1,17 @@
 <template>
   <div class="page-content">
-    <Table v-bind="contentTableConfig" :tableData="data">
-      <template #header>
-        <el-button type="primary" plain>
+    <Table
+      v-if="data"
+      v-bind="contentTableConfig"
+      :tableData="data"
+      :isHandler="isDelete || isUpdate"
+      :isQuery="isQuery"
+      :total="total"
+      @change-page="changePage"
+      @change-size="changeSize"
+    >
+      <template #header v-if="isCreate">
+        <el-button type="primary" plain @click="handlerHeaderClick">
           {{ contentTableConfig.addBtnText }}
         </el-button>
       </template>
@@ -21,7 +30,8 @@
           inactive-color="#f56c6c"
           active-text="启用"
           inactive-text="禁用"
-          @change="changeStatus"
+          @change="changeStatus($event, scope.id)"
+          :disabled="scope.auto === '超级管理员'"
         />
       </template>
       <template #handler="{ scope }">
@@ -34,31 +44,22 @@
           编辑
         </el-button>
 
-        <el-popconfirm title="确认永久删除该数据？" v-if="isDelete">
+        <el-popconfirm
+          title="确认永久删除该数据？"
+          v-if="isDelete"
+          @confirm="$emit('delete', scope)"
+        >
           <template #reference>
-            <el-button
-              size="small"
-              type="danger"
-              @click="$emit('delete', scope)"
-            >
-              删除
-            </el-button>
+            <el-button size="small" type="danger"> 删除 </el-button>
           </template>
         </el-popconfirm>
-
-        <el-alert
-          title="暂无操作权限"
-          type="warning"
-          v-if="!isDelete && !isUpdate"
-          :closable="false"
-        />
       </template>
     </Table>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits, defineExpose, withDefaults } from 'vue'
 
 import { Table } from '@/base_components/Table'
 
@@ -71,26 +72,51 @@ import * as userTypes from '@/server/users/types'
 type IProps = {
   contentTableConfig: ITableConfig
   data: any[]
+  total: number
 }
 
 type IEmits = {
-  (e: 'changeStatus', status: number): void
+  (e: 'changeStatus', status: number, userId: number): void
   (e: 'edit', data: userTypes.IUser): void
   (e: 'delete', data: userTypes.IUser): void
+  (e: 'headerClick'): void
+  (e: 'changeSize', currentSize: number): void
+  (e: 'changePage', currentPage: number): void
 }
 
-const props = defineProps<IProps>()
+const props = withDefaults(defineProps<IProps>(), {
+  data: () => [],
+  total: 0
+})
 const emits = defineEmits<IEmits>()
 
 // 验证权限
-// const isCreate = usePermission(props.contentTableConfig.pageName, 'create')
+const isCreate = usePermission(props.contentTableConfig.pageName, 'create')
 const isUpdate = usePermission(props.contentTableConfig.pageName, 'update')
-// const isQuery = usePermission(props.contentTableConfig.pageName, 'query')
+const isQuery = usePermission(props.contentTableConfig.pageName, 'query')
 const isDelete = usePermission(props.contentTableConfig.pageName, 'delete')
-
-const changeStatus = (status: number) => {
-  emits('changeStatus', status)
+const changeStatus = (status: number, id: number) => {
+  if (id) {
+    emits('changeStatus', status, id)
+  }
 }
+
+// 头部按钮点击
+const handlerHeaderClick = () => {
+  emits('headerClick')
+}
+
+// 分页
+const changePage = (page: number) => {
+  emits('changePage', page)
+}
+const changeSize = (size: number) => {
+  emits('changeSize', size)
+}
+
+defineExpose({
+  isQuery
+})
 </script>
 
 <style scoped lang="less"></style>

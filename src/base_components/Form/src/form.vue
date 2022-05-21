@@ -10,17 +10,49 @@
       <el-row>
         <template v-for="item in formItems" :key="item.field">
           <el-col v-bind="colLayout">
-            <el-form-item :label="item.lable" :prop="item.field" inline-message>
-              <el-input
-                v-model="formData[item.field]"
-                :type="item.type"
-                :placeholder="item.placeholder"
-              />
+            <el-form-item
+              :label="item.lable"
+              :prop="item.field"
+              inline-message
+              v-if="!item.isHide"
+            >
+              <template
+                v-if="
+                  item.type === 'input' ||
+                  item.type === 'password' ||
+                  item.type === 'number'
+                "
+              >
+                <el-input
+                  v-model="formData[item.field]"
+                  :type="item.type"
+                  :placeholder="item.placeholder"
+                />
+              </template>
+              <template v-else-if="item.type === 'select'">
+                <el-select
+                  style="width: 100%"
+                  :placeholder="item.placeholder"
+                  v-model="formData[item.field]"
+                >
+                  <el-option
+                    v-for="option in item.options"
+                    :key="option.value"
+                    :value="option.value"
+                    :label="option.title"
+                  >
+                    {{ option.title }}
+                  </el-option>
+                </el-select>
+              </template>
             </el-form-item>
           </el-col>
         </template>
       </el-row>
     </el-form>
+    <div class="footer">
+      <slot name="footer" />
+    </div>
   </div>
 </template>
 
@@ -50,7 +82,7 @@ type IProps = {
     span?: number
   }
   labelWidth?: string
-  labelPosition?: 'left' | 'top'
+  labelPosition?: 'left' | 'top' | 'right'
   rules?: FormRules
 }
 
@@ -96,10 +128,16 @@ const removeFormError = () => {
   formRef.value?.clearValidate()
 }
 
+// 清空表单数据
+const clearFormData = () => {
+  formRef.value?.resetFields()
+}
+
 // 对外暴露的方法
 defineExpose({
   verifyForm,
-  removeFormError
+  removeFormError,
+  clearFormData
 })
 
 // 使用model-value方式实现双向数据绑定
@@ -111,4 +149,9 @@ defineExpose({
 // }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
+</style>

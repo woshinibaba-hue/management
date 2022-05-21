@@ -7,6 +7,8 @@ export type fromItem = {
   type: Type
   lable: string
   placeholder?: string
+  options?: { title: string; value: string | number }[]
+  isHide?: boolean
 }
 
 export type FormConfig = {
@@ -19,6 +21,7 @@ export type FormConfig = {
     xs?: number
     span?: number
   }
-  labelPosition?: 'left' | 'top'
+  labelPosition?: 'left' | 'top' | 'right'
   rules?: FormRules
+  labelWidth?: string
 }

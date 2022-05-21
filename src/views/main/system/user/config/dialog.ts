@@ -1,5 +1,15 @@
 import { FormConfig } from '@/base_components/Form/types'
 
+const valMobile = (_: any, value: any, callback: any) => {
+  // 验证手机号正则
+  const mobileReg = /^(?:(?:\+|00)86)?1[3-9]\d{9}$/
+  if (mobileReg.test(value)) {
+    callback()
+  } else {
+    callback(new Error('手机号格式不正确'))
+  }
+}
+
 export const dialogConfig: FormConfig = {
   formItems: [
     {
@@ -13,6 +23,12 @@ export const dialogConfig: FormConfig = {
       type: 'input',
       lable: '邮箱',
       placeholder: '请输入邮箱'
+    },
+    {
+      field: 'password',
+      type: 'password',
+      lable: '密码',
+      placeholder: '请输入密码'
     },
     {
       field: 'mobile',
@@ -30,6 +46,10 @@ export const dialogConfig: FormConfig = {
       { required: true, message: '请输入邮箱', trigger: 'blur' },
       { type: 'email', message: '请输入正确的邮箱', trigger: 'blur' }
     ],
-    mobile: [{ required: true, message: '请输入手机号', trigger: 'blur' }]
+    mobile: [
+      { required: true, message: '请输入手机号', trigger: 'blur' },
+      { validator: valMobile, trigger: 'blur' }
+    ],
+    password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
   }
 }

@@ -3,8 +3,8 @@ type IBaseUser = {
   username?: string
   mobile?: string
   email?: string
-  status?: number
-  auto?: number
+  status?: number | string
+  auto?: number | string
 }
 
 export interface IUserParams extends IBaseUser {
@@ -15,4 +15,9 @@ export interface IUserParams extends IBaseUser {
 export interface IUser extends IBaseUser {
   avatar?: string
   createtime?: string
+}
+
+export interface IUserList {
+  users: IUser[]
+  count: number
 }

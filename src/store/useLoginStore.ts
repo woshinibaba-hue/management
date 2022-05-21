@@ -3,6 +3,7 @@ import { ElMessage } from 'element-plus'
 
 import { login } from '@/server/login'
 import { getUserMenu } from '@/server/menu'
+import { getRoleList } from '@/server/role'
 
 import storage from '@/utils/storage'
 import {
@@ -15,11 +16,13 @@ import router from '@/router'
 
 import * as types from '@/server/login/types'
 import * as menuTypes from '@/server/menu/type'
+import * as roleTypes from '@/server/role/type'
 
 interface LoginStore {
   user: types.ILoginRes | null
   menu: menuTypes.IMenu[]
   permissions: string[]
+  roles: roleTypes.IRole[]
 }
 
 const initRouters = ['login', 'layout', 'not-found', 'main']
@@ -29,7 +32,8 @@ export const useLoginStore = defineStore('login', {
     return {
       user: null,
       menu: [],
-      permissions: []
+      permissions: [],
+      roles: []
     }
   },
 
@@ -42,6 +46,11 @@ export const useLoginStore = defineStore('login', {
 
       // 登录成功获取当前用户菜单
       this.getMenuAction()
+
+      if (res.data.auto === 1 || res.data.auto === 2) {
+        // 获取角色列表
+        this.getRoleList()
+      }
 
       ElMessage.success('登录成功')
     },
@@ -77,20 +86,33 @@ export const useLoginStore = defineStore('login', {
       router.push({ name: initRouter?.name })
     },
 
+    // 获取角色列表
+    async getRoleList(params: roleTypes.IRoleParams = {}) {
+      const roles = await getRoleList(params)
+      this.roles = roles.data
+      storage.set('role_list', roles.data)
+    },
+
+    // 初始化基础数据
     initAction() {
       const userResult = storage.get('userResult')
       const menuList = storage.get('menu_list')
+      const roleList = storage.get('role_list')
       if (!userResult) return
       this.user = userResult
       this.menu = menuList
+      this.roles = roleList
       this.getMenuAction()
     },
 
+    // 退出登录
     logout() {
       this.user = null
       this.menu = []
+      this.roles = []
       storage.remove('userResult')
       storage.remove('menu_list')
+      storage.remove('role_list')
 
       router.replace('/login')
     }
