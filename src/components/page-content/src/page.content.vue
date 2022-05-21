@@ -64,7 +64,7 @@ import { defineProps, defineEmits, defineExpose, withDefaults } from 'vue'
 import { Table } from '@/base_components/Table'
 
 import { format } from '@/utils/format'
-import { usePermission } from '@/hooks/usePermission'
+import { usePermission } from '@/hooks'
 
 import { ITableConfig } from '@/base_components/Table/types'
 import * as userTypes from '@/server/users/types'

@@ -45,7 +45,7 @@ import { dialogConfig } from './config/dialog'
 
 import { useUserStore, useLoginStore } from '@/store'
 
-import { usePageDialog } from '@/hooks/usePageDialog'
+import { usePageContent, usePageDialog } from '@/hooks'
 
 import * as userTypes from '@/server/users/types'
 
@@ -129,19 +129,7 @@ const deleteData = (user: userTypes.IUser) => {
   user.id && userStore.deleteUser(user.id)
 }
 
-// 记录当前页码以及每页显示条数
-const paginationInfo = ref({
-  currentPage: 1,
-  currentSize: 10
-})
-
-// 切换分页
-const changePage = (page: number) => {
-  paginationInfo.value.currentPage = page
-}
-const changeSize = (size: number) => {
-  paginationInfo.value.currentSize = size
-}
+const { paginationInfo, changePage, changeSize } = usePageContent()
 
 // 当分页改变时，查询用户列表
 watch(paginationInfo.value, (newVal) => {
