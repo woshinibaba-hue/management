@@ -23,14 +23,13 @@ import { ref, watch, defineProps, defineEmits } from 'vue'
 import { Form } from '@/base_components/Form'
 
 import { FormConfig } from '@/base_components/Form/types'
-import * as userTypes from '@/server/users/types'
 
 type IProps = {
   modelValue: boolean
   formConfig: FormConfig
   title?: string
   pageName: string
-  defaultFormData?: userTypes.IUser
+  defaultFormData?: any
 }
 
 type IEmits = {
