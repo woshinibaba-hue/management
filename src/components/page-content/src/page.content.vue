@@ -7,12 +7,13 @@
       :isHandler="isDelete || isUpdate"
       :isQuery="isQuery"
       :total="total"
+      :showFooter="showFooter"
       @change-page="changePage"
       @change-size="changeSize"
     >
       <template #header v-if="isCreate">
         <el-button type="primary" plain @click="handlerHeaderClick">
-          {{ contentTableConfig.addBtnText }}
+          {{ contentTableConfig?.addBtnText }}
         </el-button>
       </template>
       <!-- 处理时间格式 -->
@@ -33,6 +34,15 @@
           @change="changeStatus($event, scope.id)"
           :disabled="scope.auto === '超级管理员'"
         />
+      </template>
+      <template #cover="{ scope }">
+        <el-image
+          v-if="scope.cover"
+          style="width: 100px; height: 100px"
+          :src="scope.cover"
+          fit="cover"
+        />
+        <span v-else>暂无封面</span>
       </template>
       <template #handler="{ scope }">
         <el-button
@@ -67,18 +77,18 @@ import { format } from '@/utils/format'
 import { usePermission } from '@/hooks'
 
 import { ITableConfig } from '@/base_components/Table/types'
-import * as userTypes from '@/server/users/types'
 
 type IProps = {
   contentTableConfig: ITableConfig
   data: any[]
-  total: number
+  total?: number
+  showFooter?: boolean
 }
 
 type IEmits = {
   (e: 'changeStatus', status: number, userId: number): void
-  (e: 'edit', data: userTypes.IUser): void
-  (e: 'delete', data: userTypes.IUser): void
+  (e: 'edit', data: any): void
+  (e: 'delete', data: any): void
   (e: 'headerClick'): void
   (e: 'changeSize', currentSize: number): void
   (e: 'changePage', currentPage: number): void
@@ -86,7 +96,8 @@ type IEmits = {
 
 const props = withDefaults(defineProps<IProps>(), {
   data: () => [],
-  total: 0
+  total: 0,
+  showFooter: true
 })
 const emits = defineEmits<IEmits>()
 

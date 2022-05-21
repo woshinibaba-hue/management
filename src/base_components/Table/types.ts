@@ -11,6 +11,6 @@ export interface ITableConfig {
   showColumnSelect?: boolean
   title: string
   showFooter?: boolean
-  addBtnText: string
+  addBtnText?: string
   pageName: string
 }
