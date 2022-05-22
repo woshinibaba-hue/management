@@ -2,6 +2,17 @@ import request from '@/server'
 
 import * as articleTypes from './types'
 
+// 发布文章
+export const publishArticle = (data: FormData) => {
+  return request.post({
+    url: '/article',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    data
+  })
+}
+
 // 获取文章列表
 export const getArticleList = (params?: articleTypes.IArticleParams) => {
   return request.get<articleTypes.IArticle[]>({

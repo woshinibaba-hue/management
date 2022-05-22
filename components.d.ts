@@ -36,6 +36,7 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     'Page.content': typeof import('./src/components/page-content/src/page.content.vue')['default']
     PageDialog: typeof import('./src/components/page-dialog/src/page-dialog.vue')['default']
+    PageEditor: typeof import('./src/components/page-editor/src/page-editor.vue')['default']
     PageSearch: typeof import('./src/components/page-search/src/page-search.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
