@@ -11,7 +11,6 @@
       ref="pageContentRef"
       :content-table-config="tableConfig"
       :data="articleList"
-      :show-footer="false"
       @edit="handleEditData"
       @delete="deleteArticle"
     />
@@ -32,9 +31,7 @@ import { ref } from 'vue'
 
 import { ElMessage } from 'element-plus'
 
-import { PageSearch } from '@/components/page-search'
 import { PageContent } from '@/components/page-content'
-import { PageDialog } from '@/components/page-dialog'
 
 import { searchConfig } from './config/search'
 import { tableConfig } from './config/table'
@@ -43,6 +40,9 @@ import { dialogConfig } from './config/dialog'
 import * as articleServer from '@/server/article'
 
 import * as articleTypes from '@/server/article/types'
+
+// 控制弹窗展示
+const dialogFormVisible = ref(false)
 
 const pageContentRef = ref<InstanceType<typeof PageContent>>()
 
@@ -69,9 +69,6 @@ getArticleListAction()
 const search = async () => {
   getArticleListAction(searchParams.value)
 }
-
-// 控制弹窗展示
-const dialogFormVisible = ref(false)
 
 // 修改文章
 const handleEditData = (row: articleTypes.IArticle) => {
