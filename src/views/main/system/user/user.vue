@@ -35,9 +35,7 @@
 import { ref, computed, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 
-import { PageSearch } from '@/components/page-search'
 import { PageContent } from '@/components/page-content'
-import { PageDialog } from '@/components/page-dialog'
 
 import { searchConfig } from './config/search'
 import { tableConfig } from './config/table'

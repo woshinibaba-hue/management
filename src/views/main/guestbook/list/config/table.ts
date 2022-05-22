@@ -3,33 +3,21 @@ import { ITableConfig } from '@/base_components/Table/types'
 export const tableConfig: ITableConfig = {
   tableConfig: [
     {
-      prop: 'title',
-      label: '文章标题',
-      'min-width': 100,
-      slotName: 'title'
-    },
-    {
       prop: 'content',
-      label: '文章内容',
+      label: '留言内容',
       'min-width': 200,
       slotName: 'content'
     },
     {
       prop: 'like_count',
-      label: '点赞数量',
+      label: '留言点赞数',
       'min-width': 80,
       slotName: 'like_count'
     },
     {
-      prop: 'cover',
-      label: '文章封面',
-      'min-width': 130,
-      slotName: 'cover'
-    },
-    {
       prop: 'username',
-      label: '作者',
-      'min-width': 80,
+      label: '留言人',
+      'min-width': 100,
       slotName: 'username'
     },
     {
@@ -46,7 +34,8 @@ export const tableConfig: ITableConfig = {
   ],
   showColumnIndex: true,
   showColumnSelect: false,
-  title: '文章列表',
   showFooter: false,
-  pageName: 'list'
+  title: '留言列表',
+  addBtnText: '添加留言',
+  pageName: 'guestbook'
 }

@@ -7,7 +7,6 @@
       :isHandler="isDelete || isUpdate"
       :isQuery="isQuery"
       :total="total"
-      :showFooter="showFooter"
       @change-page="changePage"
       @change-size="changeSize"
     >
