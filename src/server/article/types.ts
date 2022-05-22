@@ -17,3 +17,9 @@ export interface IArticleParams {
   limit?: number
   offset?: number
 }
+
+export interface PublishArticleParams {
+  title: string
+  content: string
+  cover?: string
+}
