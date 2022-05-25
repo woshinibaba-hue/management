@@ -4,7 +4,7 @@ import * as types from './types'
 
 // 上传图片
 export const uploadFileImg = (formData: FormData) => {
-  return request.post<string[]>({
+  return request.post<types.ImageType[]>({
     url: '/upload/img',
     headers: {
       'Content-Type': 'multipart/form-data'

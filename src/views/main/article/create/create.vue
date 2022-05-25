@@ -49,9 +49,10 @@ const handleUploadImage = async (insertImage: any, files: File[]) => {
   formData.append('image', files[0])
   // 上传图片
   const res = await uploadFileImg(formData)
+
   // 将图片插入到编辑器中
   insertImage({
-    url: res.data[0]
+    url: res.data[0].url
   })
 }
 </script>

@@ -11,6 +11,7 @@
       :data="loginStore.roles"
       @headerClick="handleNewData"
       @edit="handleEditData"
+      @delete="handleDeleteData"
     />
 
     <PageDialog
@@ -19,6 +20,7 @@
       :default-form-data="defaultFormData"
       :title="title"
       page-name="role"
+      @confirm="confirm"
     >
       <el-tree
         ref="treeRef"
@@ -29,6 +31,7 @@
           label: 'name'
         }"
         show-checkbox
+        @check="handleCheck"
       />
     </PageDialog>
   </div>
@@ -61,6 +64,9 @@ const title = ref('添加角色')
 const formData = ref<roleTypes.IRoleParams>()
 const treeRef = ref<InstanceType<typeof ElTree>>()
 
+// 重新加载角色列表
+loginStore.getRoleList()
+
 const dialogFormVisible = ref(false)
 
 const createCb = () => {
@@ -74,7 +80,7 @@ const editCb = (row: roleTypes.IRole) => {
 
   nextTick(() => {
     // 获取需要勾选的节点id
-    const checkeds = mapMenusToChecked(row.menuList as menuTypes.IMenu[])
+    const checkeds = mapMenusToChecked(row.menuList)
     // 设置需要勾选的节点(注意：必须设置node-key)
     treeRef.value?.setCheckedKeys(checkeds)
   })
@@ -89,6 +95,27 @@ const treeData = ref<menuTypes.IMenu[]>(loginStore.menu)
 const search = async () => {
   await loginStore.getRoleList(formData.value)
 }
-</script>
 
-<style scoped></style>
+// 当树形控件勾选时触发
+const checkList = ref<number[]>([])
+const handleCheck = (_: any, checkedKeys: any) => {
+  checkList.value = [...checkedKeys.checkedKeys, ...checkedKeys.halfCheckedKeys]
+}
+
+// 点击确认按钮
+const confirm = (data: any) => {
+  if (defaultFormData.value?.id) {
+    loginStore.updateRole(defaultFormData.value.id, {
+      ...data,
+      menuList: checkList.value
+    })
+  } else {
+    loginStore.addRole({ ...data, menuList: checkList.value })
+  }
+}
+
+// 删除角色
+const handleDeleteData = (data: any) => {
+  loginStore.deleteRole(data.id)
+}
+</script>
