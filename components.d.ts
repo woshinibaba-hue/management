@@ -34,6 +34,7 @@ declare module '@vue/runtime-core' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     'Page.content': typeof import('./src/components/page-content/src/page.content.vue')['default']
     PageDialog: typeof import('./src/components/page-dialog/src/page-dialog.vue')['default']
