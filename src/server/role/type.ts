@@ -5,7 +5,7 @@ export interface IRole {
   type: number
   name: string
   intro: string
-  menuList: IMenu[]
+  menuList: IMenu[] | number[]
   createtime: string
 }
 
@@ -13,4 +13,5 @@ export interface IRoleParams {
   roleId?: number
   offset?: number
   limit?: number
+  key?: string
 }
