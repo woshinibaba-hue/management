@@ -5,7 +5,7 @@ export interface IRole {
   type: number
   name: string
   intro: string
-  menuList: IMenu[] | number[]
+  menuList: IMenu[]
   createtime: string
 }
 
@@ -14,4 +14,10 @@ export interface IRoleParams {
   offset?: number
   limit?: number
   key?: string
+}
+
+export interface IRoleCreate {
+  name?: string
+  intro?: string
+  menuList?: number[]
 }

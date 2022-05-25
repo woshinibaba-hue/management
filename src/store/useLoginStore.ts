@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 
 import { login } from '@/server/login'
 import { getUserMenu } from '@/server/menu'
-import { getRoleList } from '@/server/role'
+import { getRoleList, addRole, deleteRole, editRole } from '@/server/role'
 
 import storage from '@/utils/storage'
 import {
@@ -115,6 +115,32 @@ export const useLoginStore = defineStore('login', {
       storage.remove('role_list')
 
       router.replace('/login')
+
+      ElMessage.success('退出登录')
+    },
+
+    // 新建角色
+    async addRole(data: roleTypes.IRoleCreate) {
+      await addRole(data)
+      this.getRoleList()
+
+      ElMessage.success('角色新建成功')
+    },
+
+    // 删除角色
+    async deleteRole(id: number) {
+      await deleteRole(id)
+      this.getRoleList()
+
+      ElMessage.success('角色删除成功')
+    },
+
+    // 编辑角色
+    async updateRole(id: number, data: roleTypes.IRoleCreate) {
+      await editRole(id, data)
+      this.getRoleList()
+
+      ElMessage.success('角色编辑成功')
     }
   }
 })
