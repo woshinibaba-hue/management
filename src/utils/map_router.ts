@@ -70,4 +70,23 @@ export function mapMenusToPermissions(userMenu: IMenu[]) {
   return permissions
 }
 
+// 当前需要勾选的节点
+export function mapMenusToChecked(userMenu: IMenu[]) {
+  const checkeds: number[] = []
+
+  const _recurChecked = (menu: IMenu[]) => {
+    for (const item of menu) {
+      if (item.children) {
+        _recurChecked(item.children ?? [])
+      } else {
+        checkeds.push(item.id)
+      }
+    }
+  }
+
+  _recurChecked(userMenu)
+
+  return checkeds
+}
+
 export { initRouter }

@@ -7,6 +7,8 @@
       destroy-on-close
     >
       <Form v-bind="formConfig" v-model="formData" ref="formRef" />
+      <!-- 默认插槽 用于添加一些其它功能 -->
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="closed">取消</el-button>

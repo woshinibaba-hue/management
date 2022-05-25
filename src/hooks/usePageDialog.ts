@@ -1,6 +1,9 @@
 import { ref } from 'vue'
 
-export function usePageDialog<T>(createCb: () => void, editCb: () => void) {
+export function usePageDialog<T>(
+  createCb: () => void,
+  editCb: (row: any) => void
+) {
   const defaultFormData = ref<T>()
 
   const handleNewData = () => {
@@ -9,8 +12,9 @@ export function usePageDialog<T>(createCb: () => void, editCb: () => void) {
   }
 
   const handleEditData = (row: any) => {
+    editCb && editCb(row)
+
     defaultFormData.value = { ...row }
-    editCb && editCb()
   }
 
   return {
