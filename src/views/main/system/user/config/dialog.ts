@@ -25,16 +25,23 @@ export const dialogConfig: FormConfig = {
       placeholder: '请输入邮箱'
     },
     {
-      field: 'password',
-      type: 'password',
-      lable: '密码',
-      placeholder: '请输入密码'
+      field: 'auto',
+      type: 'select',
+      lable: '角色',
+      placeholder: '请选择角色 (如果不选择角色，默认为普通用户)',
+      options: []
     },
     {
       field: 'mobile',
       type: 'number',
       lable: '手机号',
       placeholder: '请输入手机号'
+    },
+    {
+      field: 'password',
+      type: 'password',
+      lable: '密码',
+      placeholder: '请输入密码'
     }
   ],
   colLayout: {

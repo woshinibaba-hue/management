@@ -18,6 +18,7 @@
         action="http://localhost:8888/api/upload/img"
         name="image"
         :show-file-list="false"
+        :on-error="handleError"
         :on-success="handleAvatarSuccess"
       >
         <el-button type="primary">上传头像</el-button>
@@ -29,6 +30,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+
+import { ElMessage } from 'element-plus'
 import { Form } from '@/base_components/Form'
 
 import { useLoginStore } from '@/store'
@@ -67,6 +70,11 @@ const update = () => {
       }
     }
   })
+}
+
+// 图片上传失败
+const handleError = (error: any) => {
+  ElMessage.error(`${JSON.parse(error.message).msg}`)
 }
 </script>
 

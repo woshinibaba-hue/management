@@ -22,7 +22,7 @@
 
     <PageDialog
       v-model="dialogFormVisible"
-      :formConfig="dialogConfig"
+      :formConfig="dialogComputedConfig"
       :defaultFormData="defaultFormData"
       :title="title"
       pageName="user"
@@ -74,17 +74,28 @@ const changeStatus = (status: number, id: number) => {
 }
 
 const searchComputedConfig = computed(() => {
-  searchConfig.formItems.forEach((item) => {
+  return optionConfig(searchConfig)
+})
+
+const dialogComputedConfig = computed(() => {
+  return optionConfig(dialogConfig)
+})
+
+// 给下拉框设置默认值
+const optionConfig = (config: any) => {
+  config.formItems.forEach((item: any) => {
     if (item.field === 'auto') {
-      item.options = loginStore.roles.map((role) => ({
-        title: role.name,
-        value: role.id
-      }))
+      item.options = loginStore.roles.map((role) => {
+        return {
+          title: role.name,
+          value: role.id
+        }
+      })
     }
   })
 
-  return searchConfig
-})
+  return config
+}
 
 // 查询用户列表
 // 条件查询字段

@@ -63,7 +63,7 @@ class Request {
         return config
       },
       (err: AxiosError<IErrorResult>) => {
-        ElMessage.error(err.response?.data.message || '失败')
+        ElMessage.error(err.response?.data.message ?? '失败')
 
         this.loading?.close()
         return Promise.reject(err)

@@ -7,6 +7,7 @@ export interface IRole {
   intro: string
   menuList: IMenu[]
   createtime: string
+  role_name: string
 }
 
 export interface IRoleParams {

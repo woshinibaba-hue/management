@@ -21,10 +21,10 @@ export const tableConfig: ITableConfig = {
       slotName: 'mobile'
     },
     {
-      prop: 'auto',
+      prop: 'role_name',
       label: '角色',
       'min-width': 100,
-      slotName: 'auto'
+      slotName: 'role_name'
     },
     {
       prop: 'status',

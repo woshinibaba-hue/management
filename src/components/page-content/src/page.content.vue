@@ -31,7 +31,7 @@
           active-text="启用"
           inactive-text="禁用"
           @change="changeStatus($event, scope.id)"
-          :disabled="scope.auto === '超级管理员'"
+          :disabled="scope.auto === 1"
         />
       </template>
       <template #cover="{ scope }">
