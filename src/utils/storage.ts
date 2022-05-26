@@ -1,4 +1,4 @@
-type keys = 'user' | 'userResult' | 'menu_list' | 'role_list'
+type keys = 'user' | 'userResult' | 'menu_list' | 'role_list' | 'user_token'
 
 class Storage {
   set(key: keys, value: any) {

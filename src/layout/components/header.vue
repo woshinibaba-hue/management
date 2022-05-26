@@ -21,7 +21,7 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>个人信息</el-dropdown-item>
+          <el-dropdown-item @click="to('/main')">首页</el-dropdown-item>
           <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -30,12 +30,15 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { useCollapse, useLoginStore } from '@/store'
 
 import { Fold, Expand } from '@element-plus/icons-vue'
 
 const collapseState = useCollapse()
 const loginStatore = useLoginStore()
+
+const router = useRouter()
 
 const handleFold = () => {
   // collapseState.toggleCollapse()
@@ -46,6 +49,10 @@ const defaultAcatar =
 
 const logout = () => {
   loginStatore.logout()
+}
+
+const to = (path: string) => {
+  router.replace(path)
 }
 </script>
 

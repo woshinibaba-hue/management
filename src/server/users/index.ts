@@ -2,7 +2,7 @@ import request from '@/server'
 
 import * as userTypes from './types'
 
-// 获取用户列表
+// 获取用户信息列表
 export const getUserList = (params: userTypes.IUserParams) => {
   return request.get<userTypes.IUserList>({
     url: '/user',
@@ -11,10 +11,10 @@ export const getUserList = (params: userTypes.IUserParams) => {
 }
 
 // 修改用户信息
-export const updateUser = (params: userTypes.IUserParams) => {
+export const updateUser = (data: userTypes.IUser) => {
   return request.put({
-    url: `/user/update/${params.id}`,
-    data: params,
+    url: `/user/update/${data.id}`,
+    data,
     headers: {
       'Content-Type': 'multipart/form-data'
     }

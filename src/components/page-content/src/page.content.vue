@@ -129,4 +129,12 @@ defineExpose({
 })
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.page-content {
+  box-sizing: border-box;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #fff;
+}
+</style>

@@ -12,6 +12,7 @@ import './permission'
 // 重置css样式
 import 'normalize.css'
 import '@/assets/css/base.less'
+// import '@/assets/css/variable.less'
 
 import 'element-plus/theme-chalk/index.css'
 

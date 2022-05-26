@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="layout_main">
     <Header />
     <div class="content">
       <router-view v-slot="{ Component }">
@@ -16,15 +16,15 @@ import Header from './header.vue'
 </script>
 
 <style scoped lang="less">
-.main {
+.layout_main {
+  width: 100%;
   height: 100%;
-  background-color: #eff1f4;
+  background-color: @mainBgColor;
 
   .content {
     height: calc(100% - 60px - 10px);
     overflow: hidden;
     padding: 40px;
-    background-color: #fff;
     overflow-y: auto;
   }
 

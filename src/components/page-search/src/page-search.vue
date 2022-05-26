@@ -47,7 +47,13 @@ watchEffect(() => {
 
 <style scoped lang="less">
 .page-search {
-  border-bottom: 2px dashed var(--el-border-color);
-  padding-bottom: 25px;
+  // border-bottom: 2px dashed var(--el-border-color);
+  // padding-bottom: 25px;
+  box-sizing: border-box;
+
+  padding: 20px;
+  border-radius: 10px;
+
+  background-color: #fff;
 }
 </style>

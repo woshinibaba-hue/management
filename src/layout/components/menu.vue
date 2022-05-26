@@ -7,6 +7,9 @@
       class="el-menu-vertical-demo"
       :collapse="collapseState.isCollapse"
     >
+      <el-menu-item index="/main">
+        <span>首页</span>
+      </el-menu-item>
       <template v-for="menu in loginState.menu" :key="menu.id">
         <template v-if="menu.type === 1">
           <el-sub-menu :index="menu.id + ''">

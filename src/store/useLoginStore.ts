@@ -1,16 +1,13 @@
 import { defineStore } from 'pinia'
 import { ElMessage } from 'element-plus'
 
+import { updateUser, getUserList } from '@/server/users'
 import { login } from '@/server/login'
 import { getUserMenu } from '@/server/menu'
 import { getRoleList, addRole, deleteRole, editRole } from '@/server/role'
 
 import storage from '@/utils/storage'
-import {
-  mapRouter,
-  initRouter,
-  mapMenusToPermissions
-} from '@/utils/map_router'
+import { mapRouter, mapMenusToPermissions } from '@/utils/map_router'
 
 import router from '@/router'
 
@@ -43,6 +40,7 @@ export const useLoginStore = defineStore('login', {
       this.user = res.data
 
       storage.set('userResult', res.data)
+      storage.set('user_token', res.data.token)
 
       // 登录成功获取当前用户菜单
       this.getMenuAction()
@@ -83,7 +81,7 @@ export const useLoginStore = defineStore('login', {
 
       this.permissions = permissions
 
-      router.push({ name: initRouter?.name })
+      router.push('/main')
     },
 
     // 获取角色列表
@@ -113,6 +111,7 @@ export const useLoginStore = defineStore('login', {
       storage.remove('userResult')
       storage.remove('menu_list')
       storage.remove('role_list')
+      storage.remove('user_token')
 
       router.replace('/login')
 
@@ -141,6 +140,18 @@ export const useLoginStore = defineStore('login', {
       this.getRoleList()
 
       ElMessage.success('角色编辑成功')
+    },
+
+    // 更新用户信息
+    async updateUserById(data: types.ILoginRes) {
+      await updateUser(data)
+      const user = await getUserList({ id: data.id })
+
+      this.user = user.data.users[0]
+
+      storage.set('userResult', user.data.users[0])
+
+      ElMessage.success('用户信息更新成功')
     }
   }
 })

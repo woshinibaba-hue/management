@@ -2,11 +2,8 @@
 import { IMenu } from '@/server/menu/type'
 import { RouteRecordRaw } from 'vue-router'
 
-let initRouter: RouteRecordRaw | null = null
-
 // 获取需要注册的路由
 export function mapRouter(userMenu: IMenu[]) {
-  initRouter = null
   // 1. 需要注册的路由
   const routers: RouteRecordRaw[] = []
 
@@ -34,7 +31,6 @@ export function mapRouter(userMenu: IMenu[]) {
         // 将路由信息添加到 routers 中
         const router = allRouter.find((item) => item.path === route.url)
         if (router) {
-          if (!initRouter) initRouter = router
           routers.push(router)
         }
       } else {
@@ -88,5 +84,3 @@ export function mapMenusToChecked(userMenu: IMenu[]) {
 
   return checkeds
 }
-
-export { initRouter }

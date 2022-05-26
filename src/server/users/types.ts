@@ -5,6 +5,7 @@ type IBaseUser = {
   email?: string
   status?: number | string
   auto?: number | string
+  image?: string
 }
 
 export interface IUserParams extends IBaseUser {
@@ -15,6 +16,7 @@ export interface IUserParams extends IBaseUser {
 export interface IUser extends IBaseUser {
   avatar?: string
   createtime?: string
+  referral?: string
 }
 
 export interface IUserList {

@@ -20,13 +20,15 @@
                 v-if="
                   item.type === 'input' ||
                   item.type === 'password' ||
-                  item.type === 'number'
+                  item.type === 'number' ||
+                  item.type === 'textarea'
                 "
               >
                 <el-input
                   v-model="formData[item.field]"
                   :type="item.type"
                   :placeholder="item.placeholder"
+                  :disabled="item.isDisabled"
                 />
               </template>
               <template v-else-if="item.type === 'select'">

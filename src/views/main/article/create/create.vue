@@ -72,6 +72,8 @@ const handleUploadImage = async (insertImage: any, files: File[]) => {
     height: 60px;
     padding: 10px 20px;
 
+    background-color: #fff;
+
     input {
       width: 80%;
       font-size: 24px;

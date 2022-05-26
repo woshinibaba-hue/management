@@ -16,6 +16,7 @@ module.exports = {
       Components({
         resolvers: [ElementPlusResolver()]
       })
+
       // Icons({
       //   compiler: 'vue3',
       // 自动安装
@@ -23,10 +24,19 @@ module.exports = {
       // })
     ]
   },
+
   outputDir: './build',
+
   chainWebpack: (config) => {
     config.resolve.alias
       .set('@', path.resolve(__dirname, 'src'))
       .set('views', '@/views')
+  },
+
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'less',
+      patterns: [path.resolve(__dirname, 'src/assets/css/variable.less')]
+    }
   }
 }

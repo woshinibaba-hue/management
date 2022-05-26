@@ -4,11 +4,12 @@ export interface ILogin {
 }
 
 export interface ILoginRes {
-  username: string
-  email: string
-  mobile: string
-  avatar: string
-  referral: string
-  token: string
-  auto: number
+  id?: number
+  username?: string
+  email?: string
+  mobile?: string
+  avatar?: string
+  referral?: string
+  token?: string
+  auto?: number | string
 }

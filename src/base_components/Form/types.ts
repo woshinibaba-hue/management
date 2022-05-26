@@ -1,6 +1,12 @@
 import { FormRules } from 'element-plus'
 
-type Type = 'input' | 'password' | 'select' | 'datepicker' | 'number'
+type Type =
+  | 'input'
+  | 'password'
+  | 'select'
+  | 'datepicker'
+  | 'number'
+  | 'textarea'
 
 export type fromItem = {
   field: string
@@ -9,6 +15,7 @@ export type fromItem = {
   placeholder?: string
   options?: { title: string; value: string | number }[]
   isHide?: boolean
+  isDisabled?: boolean
 }
 
 export type FormConfig = {

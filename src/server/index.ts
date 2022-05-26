@@ -7,11 +7,10 @@ const request = new Request({
   timeout: 5000,
   interceptors: {
     requestInstance(config) {
-      const user = storage.get('userResult')
+      const user = storage.get('user_token')
 
       if (user) {
-        config.headers &&
-          (config.headers.Authorization = `Bearer ${user.token}`)
+        config.headers && (config.headers.Authorization = `Bearer ${user}`)
       }
 
       return config
