@@ -98,6 +98,7 @@ const props = withDefaults(defineProps<IProps>(), {
   total: 0,
   showFooter: true
 })
+
 const emits = defineEmits<IEmits>()
 
 // 验证权限
@@ -134,7 +135,7 @@ defineExpose({
   box-sizing: border-box;
   margin-top: 20px;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: #fff;
 }
 </style>

@@ -7,6 +7,7 @@ type Type =
   | 'datepicker'
   | 'number'
   | 'textarea'
+  | 'upload'
 
 export type fromItem = {
   field: string

@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-export function usePageDialog<T>(
+export function usePageDialog<T = any>(
   createCb: () => void,
   editCb: (row: any) => void
 ) {

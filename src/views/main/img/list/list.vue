@@ -95,6 +95,10 @@ const handleSuccess = () => {
   width: 300px;
 }
 
+:deep(.el-upload--picture-card) {
+  background-color: unset;
+}
+
 .is-delete {
   :deep(.el-upload-list__item-delete) {
     display: none !important;
@@ -111,5 +115,9 @@ const handleSuccess = () => {
 
 :deep(.el-upload--picture-card) {
   border: 0;
+}
+
+:deep(.el-upload-list__item) {
+  margin: 0 20px 20px 0;
 }
 </style>
