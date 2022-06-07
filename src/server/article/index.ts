@@ -3,12 +3,12 @@ import request from '@/server'
 import * as articleTypes from './types'
 
 // 发布文章
-export const publishArticle = (data: FormData) => {
+export const publishArticle = (data: { title: string; content: string }) => {
   return request.post({
     url: '/article',
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    },
+    // headers: {
+    //   'Content-Type': 'multipart/form-data'
+    // },
     data
   })
 }

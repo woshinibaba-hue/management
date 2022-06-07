@@ -30,10 +30,13 @@ const reset = () => {
 
 const release = async () => {
   if (content.value.trim() && title.value.trim()) {
-    const formData = new FormData()
-    formData.append('title', title.value)
-    formData.append('content', content.value)
-    await publishArticle(formData)
+    // const formData = new FormData()
+    // formData.append('title', title.value)
+    // formData.append('content', content.value)
+    await publishArticle({
+      title: title.value,
+      content: content.value
+    })
     ElMessage.success('发布成功')
     reset()
   } else {
