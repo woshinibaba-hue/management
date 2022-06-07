@@ -1,7 +1,8 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
+    'vue/setup-compiler-macros': true
   },
   extends: [
     'plugin:vue/vue3-essential',
@@ -9,7 +10,9 @@ module.exports = {
     '@vue/typescript/recommended',
     '@vue/prettier',
     '@vue/prettier/@typescript-eslint',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    './.eslintrc-auto-import.json',
+    'vue-global-api'
   ],
   parserOptions: {
     ecmaVersion: 2020
@@ -20,6 +23,10 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
-    '@typescript-eslint/no-non-null-assertion': 0
+    '@typescript-eslint/no-non-null-assertion': 0,
+    'vue/multi-word-component-names': 0
+  },
+  globals: {
+    error: true
   }
 }

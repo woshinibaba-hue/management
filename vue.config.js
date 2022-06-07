@@ -10,18 +10,37 @@ const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 module.exports = {
   configureWebpack: {
     plugins: [
-      AutoImport({
-        resolvers: [ElementPlusResolver()]
-      }),
-      Components({
-        resolvers: [ElementPlusResolver()]
-      })
+      // AutoImport({
+      //   resolvers: [ElementPlusResolver()]
+      // }),
+      // Components({
+      //   resolvers: [ElementPlusResolver()]
+      // })
 
       // Icons({
       //   compiler: 'vue3',
       // 自动安装
       //   autoInstall: true
       // })
+
+      AutoImport({
+        include: [
+          /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+          /\.vue$/,
+          /\.vue\?vue/ // .vue
+        ],
+        imports: ['vue', 'vue-router'],
+        eslintrc: {
+          enabled: true, // 若没此json文件，先开启，生成后在关闭
+          filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
+          globalsPropValue: true
+        },
+        dts: './auto-imports.d.ts',
+        resolvers: [ElementPlusResolver()]
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()]
+      })
     ]
   },
 

@@ -26,14 +26,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
-import { ElMessage } from 'element-plus'
-
-import { PageSearch } from '@/components/page-search'
-import { PageContent } from '@/components/page-content'
-import { PageDialog } from '@/components/page-dialog'
-
 import { searchConfig } from './config/search'
 import { tableConfig } from './config/table'
 import { dialogConfig } from './config/dialog'

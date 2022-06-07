@@ -10,8 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect, defineProps, defineEmits } from 'vue'
-
 import { Form } from '@/base_components/Form'
 
 import { FormConfig } from '@/base_components/Form/types'

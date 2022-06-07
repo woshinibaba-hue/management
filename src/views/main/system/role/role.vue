@@ -38,17 +38,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick } from 'vue'
-
 import { useLoginStore } from '@/store'
 
 import { usePageDialog } from '@/hooks'
 import { mapMenusToChecked } from '@/utils/map_router'
-
-import { ElTree } from 'element-plus'
-import { PageSearch } from '@/components/page-search'
-import { PageContent } from '@/components/page-content'
-import { PageDialog } from '@/components/page-dialog'
 
 import { searchConfig } from './config/search'
 import { tableConfig } from './config/table'

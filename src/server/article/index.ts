@@ -6,9 +6,6 @@ import * as articleTypes from './types'
 export const publishArticle = (data: { title: string; content: string }) => {
   return request.post({
     url: '/article',
-    // headers: {
-    //   'Content-Type': 'multipart/form-data'
-    // },
     data
   })
 }

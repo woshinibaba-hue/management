@@ -12,11 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
-import { ElMessage } from 'element-plus'
-import { PageEditor } from '@/components/page-editor'
-
 import { publishArticle } from '@/server/article'
 import { uploadFileImg } from '@/server/upload'
 

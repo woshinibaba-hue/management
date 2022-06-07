@@ -11,7 +11,7 @@
       <slot></slot>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="closed">取消</el-button>
+          <el-button @click="closed()">取消</el-button>
           <el-button type="primary" @click="closed(1)">确定</el-button>
         </span>
       </template>
@@ -20,8 +20,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, defineProps, defineEmits } from 'vue'
-
 import { Form } from '@/base_components/Form'
 
 import { FormConfig } from '@/base_components/Form/types'

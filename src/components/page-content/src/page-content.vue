@@ -30,7 +30,7 @@
           inactive-color="#f56c6c"
           active-text="启用"
           inactive-text="禁用"
-          @change="changeStatus($event, scope.id)"
+          @change="changeStatus($event as number, scope.id)"
           :disabled="scope.auto === 1"
         />
       </template>
@@ -68,8 +68,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, defineExpose, withDefaults } from 'vue'
-
 import { Table } from '@/base_components/Table'
 
 import { format } from '@/utils/format'

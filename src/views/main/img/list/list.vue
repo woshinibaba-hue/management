@@ -24,7 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 
 import * as imgServer from '@/server/upload'
@@ -32,7 +31,7 @@ import * as imgTypes from '@/server/upload/types'
 
 import { usePermission } from '@/hooks/usePermission'
 
-import { UploadProps, ElMessageBox, ElMessage } from 'element-plus'
+import { UploadProps, ElMessageBox } from 'element-plus'
 
 const fileList = ref<imgTypes.ImageType[]>([])
 
@@ -50,7 +49,7 @@ const getImageList = async () => {
 getImageList()
 
 // 删除图片
-const handleRemove = async (uploadFile: imgTypes.ImageType) => {
+const handleRemove = async (uploadFile: any) => {
   // 弹出确认框
   ElMessageBox.confirm(`确定删除 ${uploadFile.name} 图片吗？`, '提示', {
     confirmButtonText: '确定',

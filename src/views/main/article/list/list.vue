@@ -27,12 +27,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
-import { ElMessage } from 'element-plus'
-
-import { PageContent } from '@/components/page-content'
-
 import { searchConfig } from './config/search'
 import { tableConfig } from './config/table'
 import { dialogConfig } from './config/dialog'
@@ -40,6 +34,8 @@ import { dialogConfig } from './config/dialog'
 import * as articleServer from '@/server/article'
 
 import * as articleTypes from '@/server/article/types'
+
+import { PageContent } from '@/components/page-content'
 
 // 控制弹窗展示
 const dialogFormVisible = ref(false)
@@ -79,6 +75,7 @@ const handleEditData = (row: articleTypes.IArticle) => {
     content: row.content
   }
 }
+
 const confirm = async (data: any) => {
   await articleServer.updateArticle({ ...data, id: defaultData.value?.id })
   ElMessage.success('修改成功')

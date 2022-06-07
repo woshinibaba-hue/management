@@ -31,7 +31,6 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
 import { FormInstance, FormRules } from 'element-plus'
 
 import { useLoginStore } from '@/store/useLoginStore'

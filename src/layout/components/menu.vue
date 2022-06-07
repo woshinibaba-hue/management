@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+// import { useRoute } from 'vue-router'
 import { useCollapse, useLoginStore } from '@/store'
 const collapseState = useCollapse()
 const loginState = useLoginStore()

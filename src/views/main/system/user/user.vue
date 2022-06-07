@@ -32,7 +32,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 
 import { PageContent } from '@/components/page-content'

@@ -58,8 +58,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, withDefaults } from 'vue'
-
 import { IPropType } from '../types'
 
 interface IProps {

@@ -29,9 +29,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
-import { ElMessage } from 'element-plus'
 import { Form } from '@/base_components/Form'
 
 import { useLoginStore } from '@/store'
