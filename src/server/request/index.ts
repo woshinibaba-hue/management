@@ -1,5 +1,8 @@
 import axios, { AxiosInstance, AxiosError } from 'axios'
 
+import router from '@/router'
+import storage from '@/utils/storage'
+
 import { ElLoading, ElMessage } from 'element-plus'
 
 import {
@@ -64,6 +67,12 @@ class Request {
       },
       (err: AxiosError<IErrorResult>) => {
         ElMessage.error(err.response?.data.message ?? '失败')
+
+        // token失效，跳转到登录页面, 并且清除当前用户信息
+        if (err.response?.data.code === -1) {
+          router.replace('/login')
+          storage.clear()
+        }
 
         this.loading?.close()
         return Promise.reject(err)

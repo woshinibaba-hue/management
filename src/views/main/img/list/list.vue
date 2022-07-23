@@ -1,7 +1,7 @@
 <template>
   <div class="list">
     <el-upload
-      action="http://localhost:8888/api/upload/img"
+      action="http://122.112.240.26:8888/api/upload/img"
       name="image"
       list-type="picture-card"
       :on-preview="handlePictureCardPreview"

@@ -31,7 +31,7 @@ module.exports = {
         ],
         imports: ['vue', 'vue-router'],
         eslintrc: {
-          enabled: true, // 若没此json文件，先开启，生成后在关闭
+          enabled: false, // 若没此json文件，先开启，生成后在关闭
           filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
           globalsPropValue: true
         },

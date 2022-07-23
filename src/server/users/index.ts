@@ -35,9 +35,9 @@ export const updateUserStatus = (userId: number, status: number) => {
 export const createUser = (data: any) => {
   return request.post({
     url: '/user',
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    },
+    // headers: {
+    //   'Content-Type': 'multipart/form-data'
+    // },
     data
   })
 }

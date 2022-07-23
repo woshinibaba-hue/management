@@ -8,11 +8,13 @@ class Storage {
     }
   }
 
-  get<T = any>(key: keys): T | null | undefined {
+  get<T = any>(key: keys): T | null {
     if (key) {
       const val = window.localStorage.getItem(key)
       return val ? JSON.parse(val) : null
     }
+
+    return null
   }
 
   remove(key: keys) {
