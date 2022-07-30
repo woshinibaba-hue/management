@@ -17,22 +17,14 @@
       @change-page="changePage"
       @change-size="changeSize"
     />
-
-    <PageDialog
-      v-model="dialogFormVisible"
-      :form-config="dialogConfig"
-      :defaultFormData="defaultData"
-      title="修改文章"
-      pageName="list"
-      @confirm="confirm"
-    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { searchConfig } from './config/search'
 import { tableConfig } from './config/table'
-import { dialogConfig } from './config/dialog'
+
+import { useArticle } from '@/store'
 
 import * as articleServer from '@/server/article'
 
@@ -40,9 +32,6 @@ import * as articleTypes from '@/server/article/types'
 
 import { PageContent } from '@/components/page-content'
 import router from '@/router'
-
-// 控制弹窗展示
-const dialogFormVisible = ref(false)
 
 const pageContentRef = ref<InstanceType<typeof PageContent>>()
 
@@ -62,29 +51,24 @@ const getArticleListAction = async (params?: articleTypes.IArticleParams) => {
   })
 }
 
-const defaultData = ref<{ title: string; content: string; id: number }>()
-
 // 查询文章列表
 const search = async () => {
   getArticleListAction(searchParams.value)
 }
 
+const { setArticleDetail } = useArticle()
+
 // 修改文章
 const handleEditData = (row: articleTypes.IArticle) => {
-  console.log(row)
+  setArticleDetail({
+    id: row.id,
+    title: row.title,
+    content: row.content,
+    description: row.description,
+    cover: row.cover ?? null,
+    tags: row.tags?.map((tag) => tag.id) ?? []
+  })
   router.push('/main/article/create')
-  // dialogFormVisible.value = true
-  // defaultData.value = {
-  //   id: row.id,
-  //   title: row.title,
-  //   content: row.content
-  // }
-}
-
-const confirm = async (data: any) => {
-  await articleServer.updateArticle({ ...data, id: defaultData.value?.id })
-  ElMessage.success('修改成功')
-  getArticleListAction()
 }
 
 // 删除文章

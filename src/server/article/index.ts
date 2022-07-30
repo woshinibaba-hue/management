@@ -19,13 +19,13 @@ export const getArticleList = (params?: articleTypes.IArticleParams) => {
 }
 
 // 修改文章
-export const updateArticle = (params: any) => {
+export const updateArticle = (params: articleTypes.PublishArticleParams) => {
   return request.put({
     url: '/article',
-    data: params,
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
+    data: params
+    // headers: {
+    //   'Content-Type': 'multipart/form-data'
+    // }
   })
 }
 

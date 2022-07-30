@@ -31,10 +31,13 @@
 </template>
 
 <script setup lang="ts">
-import { publishArticle } from '@/server/article'
-import { uploadFileImg } from '@/server/upload'
-
+import { storeToRefs } from 'pinia'
 import { FormRules } from 'element-plus'
+
+import { useArticle } from '@/store'
+
+import { publishArticle, updateArticle } from '@/server/article'
+import { uploadFileImg } from '@/server/upload'
 
 import { getTags } from '@/server/tags'
 import { PublishArticleParams } from '@/server/article/types'
@@ -43,13 +46,21 @@ import Upload from '@/components/Upload/upload.vue'
 
 const tags = ref<{ key: number; label: string; disabled: boolean }[]>([])
 
-let formData = reactive<PublishArticleParams>({
+const store = useArticle()
+const { articleDetail } = storeToRefs(store)
+
+const formData = ref<PublishArticleParams>({
   title: '',
   content: '',
   description: '',
   cover: null,
   tags: []
 })
+
+// 当存在详情时，设置表单数据
+if (articleDetail.value) {
+  formData.value = articleDetail.value
+}
 
 // 表单校验
 const rules = reactive<FormRules>({
@@ -66,10 +77,20 @@ const formRef = ref<InstanceType<typeof ElForm>>()
 const release = () => {
   formRef.value?.validate(async (isValid) => {
     if (isValid) {
-      const res = await publishArticle(formData)
-      ElMessage.success(res.message)
-      formData.cover = null
-      formRef.value?.resetFields()
+      let res
+      if (articleDetail.value) {
+        res = await updateArticle(formData.value)
+      } else {
+        res = await publishArticle(formData.value)
+      }
+      ElMessage.success(res?.message)
+      formData.value = {
+        title: '',
+        content: '',
+        description: '',
+        cover: null,
+        tags: []
+      }
     }
   })
 }
@@ -90,7 +111,7 @@ const handleUploadImage = async (insertImage: any, files: File[]) => {
 }
 
 const handleSuccess = (url: string) => {
-  formData.cover = url
+  formData.value.cover = url
 }
 
 // 获取标签
@@ -102,6 +123,10 @@ getTags().then((res) => {
       disabled: false
     })
   })
+})
+
+onUnmounted(() => {
+  store.setArticleDetail(null)
 })
 </script>
 
