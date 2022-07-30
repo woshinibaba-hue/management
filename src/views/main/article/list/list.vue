@@ -10,9 +10,12 @@
     <PageContent
       ref="pageContentRef"
       :content-table-config="tableConfig"
-      :data="articleList"
+      :total="articleList?.total"
+      :data="articleList?.articles ?? []"
       @edit="handleEditData"
       @delete="deleteArticle"
+      @change-page="changePage"
+      @change-size="changeSize"
     />
 
     <PageDialog
@@ -45,21 +48,20 @@ const pageContentRef = ref<InstanceType<typeof PageContent>>()
 const searchParams = ref<articleTypes.IArticle>()
 
 // 文章列表
-const articleList = ref<articleTypes.IArticle[]>([])
+const articleList = ref<articleTypes.IArticleList>()
 
 // 获取文章列表
-const getArticleListAction = async (params?: articleTypes.IArticle) => {
+const getArticleListAction = async (params?: articleTypes.IArticleParams) => {
   const { data } = await articleServer.getArticleList(params)
+
   articleList.value = data
-  data.forEach((item, index) => {
-    articleList.value[index].username = item.user.username
+  data.articles.forEach((item, index) => {
+    articleList?.value &&
+      (articleList.value.articles[index].username = item.user.username)
   })
 }
 
 const defaultData = ref<{ title: string; content: string; id: number }>()
-
-// 初始化文章列表
-getArticleListAction()
 
 // 查询文章列表
 const search = async () => {
@@ -88,6 +90,23 @@ const deleteArticle = async (row: any) => {
   ElMessage.success('删除成功')
   getArticleListAction()
 }
+
+const pagination = reactive({
+  limit: 10,
+  page: 1
+})
+
+const changePage = (page: number) => {
+  pagination.page = page
+}
+
+const changeSize = (size: number) => {
+  pagination.limit = size
+}
+
+watchEffect(() => {
+  getArticleListAction(pagination)
+})
 </script>
 
 <style scoped lang="less"></style>

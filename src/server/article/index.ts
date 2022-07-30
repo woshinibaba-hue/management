@@ -12,7 +12,7 @@ export const publishArticle = (data: articleTypes.PublishArticleParams) => {
 
 // 获取文章列表
 export const getArticleList = (params?: articleTypes.IArticleParams) => {
-  return request.get<articleTypes.IArticle[]>({
+  return request.get<articleTypes.IArticleList>({
     url: '/article',
     params
   })

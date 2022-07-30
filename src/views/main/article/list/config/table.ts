@@ -15,10 +15,10 @@ export const tableConfig: ITableConfig = {
       slotName: 'content'
     },
     {
-      prop: 'like_count',
-      label: '点赞数量',
+      prop: 'tags',
+      label: '文章标签',
       'min-width': 80,
-      slotName: 'like_count'
+      slotName: 'tags'
     },
     {
       prop: 'cover',
@@ -47,6 +47,6 @@ export const tableConfig: ITableConfig = {
   showColumnIndex: true,
   showColumnSelect: false,
   title: '文章列表',
-  showFooter: false,
+  showFooter: true,
   pageName: 'list'
 }

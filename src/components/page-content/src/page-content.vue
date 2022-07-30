@@ -43,6 +43,18 @@
         />
         <span v-else>暂无封面</span>
       </template>
+      <template #tags="{ scope }">
+        <el-space wrap>
+          <template v-if="scope.tags">
+            <template v-for="tag in scope.tags" :key="tag.id">
+              <el-tag :color="tag.color" style="color: #fff"
+                >{{ tag.name }}
+              </el-tag>
+            </template>
+          </template>
+          <template v-else>暂无标签</template>
+        </el-space>
+      </template>
       <template #handler="{ scope }">
         <el-button
           v-if="isUpdate"
