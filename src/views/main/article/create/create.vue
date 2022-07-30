@@ -1,13 +1,32 @@
 <template>
   <div class="create">
-    <div class="title">
-      <input type="text" v-model="title" placeholder="输入文章标题..." />
-      <div class="btns">
-        <el-button @click="reset">清空</el-button>
-        <el-button type="primary" @click="release">发布</el-button>
-      </div>
+    <el-form :model="formData" :rules="rules" ref="formRef">
+      <el-form-item label="文章标题" prop="title">
+        <el-input placeholder="输入文章标题" v-model="formData.title" />
+      </el-form-item>
+      <el-form-item label="文章描述" prop="description">
+        <el-input placeholder="输入文章描述" v-model="formData.description" />
+      </el-form-item>
+      <el-form-item label="文章标签" prop="tags">
+        <el-transfer
+          :data="tags"
+          v-model="formData.tags"
+          :titles="['全部标签', '已选择标签']"
+        />
+      </el-form-item>
+      <el-form-item label="文章封面">
+        <Upload :imgUrl="formData.cover" @handleSuccess="handleSuccess" />
+      </el-form-item>
+      <el-form-item label="文章内容" class="content" prop="content">
+        <PageEditor
+          v-model="formData.content"
+          @uploadImage="handleUploadImage"
+        />
+      </el-form-item>
+    </el-form>
+    <div class="btns">
+      <el-button type="primary" @click="release">发布</el-button>
     </div>
-    <PageEditor v-model="content" @uploadImage="handleUploadImage" />
   </div>
 </template>
 
@@ -15,31 +34,47 @@
 import { publishArticle } from '@/server/article'
 import { uploadFileImg } from '@/server/upload'
 
-const content = ref('')
-const title = ref('')
+import { FormRules } from 'element-plus'
 
-const reset = () => {
-  content.value = ''
-  title.value = ''
+import { getTags } from '@/server/tags'
+import { PublishArticleParams } from '@/server/article/types'
+
+import Upload from '@/components/Upload/upload.vue'
+
+const tags = ref<{ key: number; label: string; disabled: boolean }[]>([])
+
+let formData = reactive<PublishArticleParams>({
+  title: '',
+  content: '',
+  description: '',
+  cover: null,
+  tags: []
+})
+
+// 表单校验
+const rules = reactive<FormRules>({
+  title: [{ required: true, message: '文章标题不能为空', trigger: 'blur' }],
+  content: [{ required: true, message: '文章内容不能为空', trigger: 'blur' }],
+  description: [
+    { required: true, message: '文章描述不能为空', trigger: 'blur' }
+  ],
+  tags: [{ required: true, message: '文章标签不能为空', trigger: 'blur' }]
+})
+
+const formRef = ref<InstanceType<typeof ElForm>>()
+
+const release = () => {
+  formRef.value?.validate(async (isValid) => {
+    if (isValid) {
+      const res = await publishArticle(formData)
+      ElMessage.success(res.message)
+      formData.cover = null
+      formRef.value?.resetFields()
+    }
+  })
 }
 
-const release = async () => {
-  if (content.value.trim() && title.value.trim()) {
-    // const formData = new FormData()
-    // formData.append('title', title.value)
-    // formData.append('content', content.value)
-    await publishArticle({
-      title: title.value,
-      content: content.value
-    })
-    ElMessage.success('发布成功')
-    reset()
-  } else {
-    ElMessage.warning('文章标题或内容不能为空！')
-  }
-}
-
-// 上传图片
+// md 上传图片
 const handleUploadImage = async (insertImage: any, files: File[]) => {
   // 创建 FormData 对象
   const formData = new FormData()
@@ -53,36 +88,34 @@ const handleUploadImage = async (insertImage: any, files: File[]) => {
     url: res.data[0].url
   })
 }
+
+const handleSuccess = (url: string) => {
+  formData.cover = url
+}
+
+// 获取标签
+getTags().then((res) => {
+  res.data.forEach((item) => {
+    tags.value.push({
+      key: item.id,
+      label: item.name,
+      disabled: false
+    })
+  })
+})
 </script>
 
 <style scoped lang="less">
 .create {
+  padding: 20px;
   border-radius: 6px;
   overflow: hidden;
-  box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.1);
-
-  .title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    width: 100%;
-    height: 60px;
-    padding: 10px 20px;
-
-    background-color: #fff;
-
-    input {
-      width: 80%;
-      font-size: 24px;
-      border: 0;
-      outline: none;
-    }
-  }
+  background-color: #fff;
 }
 
-:deep(.v-md-editor) {
-  border-radius: 0;
-  box-shadow: none;
+.content {
+  :deep(.el-form-item__content) {
+    display: unset;
+  }
 }
 </style>

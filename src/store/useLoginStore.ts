@@ -1,6 +1,3 @@
-import { defineStore } from 'pinia'
-import { ElMessage } from 'element-plus'
-
 import { updateUser, getUserList } from '@/server/users'
 import { login } from '@/server/login'
 import { getUserMenu } from '@/server/menu'

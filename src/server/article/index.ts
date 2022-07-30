@@ -3,7 +3,7 @@ import request from '@/server'
 import * as articleTypes from './types'
 
 // 发布文章
-export const publishArticle = (data: { title: string; content: string }) => {
+export const publishArticle = (data: articleTypes.PublishArticleParams) => {
   return request.post({
     url: '/article',
     data

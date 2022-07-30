@@ -36,6 +36,7 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    ElTransfer: typeof import('element-plus/es')['ElTransfer']
     ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     PageContent: typeof import('./src/components/page-content/src/page-content.vue')['default']
@@ -44,6 +45,7 @@ declare module '@vue/runtime-core' {
     PageSearch: typeof import('./src/components/page-search/src/page-search.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Upload: typeof import('./src/components/Upload/upload.vue')['default']
   }
 }
 

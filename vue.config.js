@@ -29,7 +29,7 @@ module.exports = {
           /\.vue$/,
           /\.vue\?vue/ // .vue
         ],
-        imports: ['vue', 'vue-router'],
+        imports: ['vue', 'vue-router', 'pinia'],
         eslintrc: {
           enabled: false, // 若没此json文件，先开启，生成后在关闭
           filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`

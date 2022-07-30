@@ -21,5 +21,7 @@ export interface IArticleParams {
 export interface PublishArticleParams {
   title: string
   content: string
-  cover?: string
+  cover: string | null
+  description: string
+  tags: number[]
 }

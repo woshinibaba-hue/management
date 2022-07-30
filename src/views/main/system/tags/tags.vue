@@ -22,18 +22,7 @@
       :default-form-data="defaultFormData"
       @confirm="dialogConfirm"
     >
-      <el-upload
-        class="cover"
-        action="http://localhost:8888/api/upload/img"
-        name="image"
-        :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-      >
-        <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-        <el-icon v-else class="avatar-uploader-icon">
-          <Plus />
-        </el-icon>
-      </el-upload>
+      <Upload :imgUrl="imageUrl" @handle-success="hendleSuccess" />
     </PageDialog>
   </div>
 </template>
@@ -43,13 +32,12 @@ import { searchConfig } from './config/search'
 import { tableConfig } from './config/table'
 import { dialogConfig } from './config/dialog'
 
+import Upload from '@/components/Upload/upload.vue'
+
 import { storeToRefs } from 'pinia'
 import { useTags } from '@/store/useTags'
 
 import { usePageDialog } from '@/hooks/usePageDialog'
-
-import { UploadProps } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
 
 import { ITag } from '@/server/tags/type'
 
@@ -97,10 +85,6 @@ const { handleEditData, defaultFormData, handleNewData } = usePageDialog<ITag>(
   editCb
 )
 
-const handleAvatarSuccess: UploadProps['onSuccess'] = (response) => {
-  imageUrl.value = response.data.filesPath[0].url
-}
-
 // 点击搜索按钮
 const search = () => {
   tagStore.getTagList(searchParams.value.name, false)
@@ -125,6 +109,10 @@ const handleDeleteData = (row: ITag) => {
   tagStore.deleteTag(row.id!)
 }
 
+const hendleSuccess = (url: string) => {
+  imageUrl.value = url
+}
+
 watchEffect(() => {
   if (!dialogFormVisible.value) {
     imageUrl.value = ''
@@ -132,20 +120,4 @@ watchEffect(() => {
 })
 </script>
 
-<style scoped lang="less">
-.cover {
-  width: 100px;
-  height: 100px;
-  border: 1px dashed #8c939d;
-  border-radius: 5px;
-  overflow: hidden;
-
-  .avatar-uploader-icon,
-  img {
-    width: 100px;
-    height: 100px;
-    font-size: 26px;
-    color: #8c939d;
-  }
-}
-</style>
+<style scoped lang="less"></style>

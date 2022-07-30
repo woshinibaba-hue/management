@@ -1,7 +1,3 @@
-import { ref } from 'vue'
-
-import { defineStore } from 'pinia'
-
 import {
   getTags,
   createTag,
@@ -10,8 +6,6 @@ import {
 } from '@/server/tags'
 
 import { BaseTag, ITag } from '@/server/tags/type'
-
-import { ElMessage } from 'element-plus'
 
 export const useTags = defineStore('tags', () => {
   // 所有的标签列表

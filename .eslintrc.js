@@ -11,8 +11,8 @@ module.exports = {
     '@vue/prettier',
     '@vue/prettier/@typescript-eslint',
     'plugin:prettier/recommended',
-    './.eslintrc-auto-import.json',
-    'vue-global-api'
+    'vue-global-api',
+    './.eslintrc-auto-import.json'
   ],
   parserOptions: {
     ecmaVersion: 2020
