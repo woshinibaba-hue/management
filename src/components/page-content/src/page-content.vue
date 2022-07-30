@@ -37,7 +37,7 @@
       <template #cover="{ scope }">
         <el-image
           v-if="scope.cover"
-          style="width: 100px; height: 100px"
+          style="width: 80px; height: 80px"
           :src="scope.cover"
           fit="cover"
         />
@@ -54,6 +54,9 @@
           </template>
           <template v-else>暂无标签</template>
         </el-space>
+      </template>
+      <template #color="{ scope }">
+        <el-color-picker v-model="scope.color" disabled />
       </template>
       <template #handler="{ scope }">
         <el-button
@@ -147,5 +150,10 @@ defineExpose({
   padding: 20px;
   border-radius: 10px;
   background-color: #fff;
+
+  :deep(.el-color-picker__mask) {
+    background-color: unset;
+    cursor: unset;
+  }
 }
 </style>

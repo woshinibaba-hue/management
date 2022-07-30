@@ -96,6 +96,7 @@ const dialogConfirm = (formData: any) => {
     tagStore.updateTag({
       id: defaultFormData.value.id,
       name: formData.name,
+      color: formData.color,
       cover: imageUrl.value,
       parent_id: formData.parent_id
     })

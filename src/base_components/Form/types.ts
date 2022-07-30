@@ -8,6 +8,7 @@ type Type =
   | 'number'
   | 'textarea'
   | 'upload'
+  | 'colorpicker'
 
 export type fromItem = {
   field: string

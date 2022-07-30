@@ -39,6 +39,7 @@ import * as articleServer from '@/server/article'
 import * as articleTypes from '@/server/article/types'
 
 import { PageContent } from '@/components/page-content'
+import router from '@/router'
 
 // 控制弹窗展示
 const dialogFormVisible = ref(false)
@@ -70,12 +71,14 @@ const search = async () => {
 
 // 修改文章
 const handleEditData = (row: articleTypes.IArticle) => {
-  dialogFormVisible.value = true
-  defaultData.value = {
-    id: row.id,
-    title: row.title,
-    content: row.content
-  }
+  console.log(row)
+  router.push('/main/article/create')
+  // dialogFormVisible.value = true
+  // defaultData.value = {
+  //   id: row.id,
+  //   title: row.title,
+  //   content: row.content
+  // }
 }
 
 const confirm = async (data: any) => {

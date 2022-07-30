@@ -15,6 +15,12 @@ export const tableConfig: ITableConfig = {
       slotName: 'cover'
     },
     {
+      prop: 'color',
+      label: '标签背景色',
+      'min-width': 100,
+      slotName: 'color'
+    },
+    {
       prop: 'createtime',
       label: '创建时间',
       'min-width': 200,

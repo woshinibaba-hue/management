@@ -9,6 +9,11 @@ export const dialogConfig: FormConfig = {
       placeholder: '请输入标签名称'
     },
     {
+      field: 'color',
+      type: 'colorpicker',
+      lable: '标签颜色'
+    },
+    {
       field: 'parent_id',
       type: 'select',
       lable: '所属标签',

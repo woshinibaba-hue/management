@@ -47,6 +47,12 @@
                   </el-option>
                 </el-select>
               </template>
+              <template v-else-if="item.type === 'colorpicker'">
+                <el-color-picker
+                  v-model="formData[item.field]"
+                  color-format="rgb"
+                />
+              </template>
             </el-form-item>
           </el-col>
         </template>
