@@ -8,12 +8,18 @@
       :collapse="collapseState.isCollapse"
     >
       <el-menu-item index="/main">
+        <el-icon><House /></el-icon>
         <span>首页</span>
       </el-menu-item>
       <template v-for="menu in loginState.menu" :key="menu.id">
         <template v-if="menu.type === 1">
           <el-sub-menu :index="menu.id + ''">
             <template #title>
+              <el-icon>
+                <component
+                  :is="iconList[iconList.findIndex((item: any) => item.name === menu.icon)]"
+                />
+              </el-icon>
               <span>{{ menu.name }}</span>
             </template>
             <template v-for="subMenu in menu.children" :key="subMenu.id">
@@ -34,17 +40,26 @@
 
 <script setup lang="ts">
 // import { useRoute } from 'vue-router'
+
+import {
+  House,
+  Link,
+  PictureRounded,
+  ChatDotRound,
+  Monitor,
+  Reading
+} from '@element-plus/icons-vue'
 import { useCollapse, useLoginStore } from '@/store'
 const collapseState = useCollapse()
 const loginState = useLoginStore()
 
 const route = useRoute()
+const iconList = [Link, PictureRounded, ChatDotRound, Monitor, Reading]
 </script>
 
 <style scoped lang="less">
 :deep(.el-menu) {
   border-right: 0;
-
   overflow: hidden;
   background-color: #304156;
 }

@@ -3,7 +3,7 @@ export interface IMenu {
   name: string
   type: number
   url: string | null
-  icon: string
+  icon: any
   parentId: number | null
   permission: string | null
   children: IMenu[]

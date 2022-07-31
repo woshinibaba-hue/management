@@ -41,7 +41,7 @@ const loginStatore = useLoginStore()
 const router = useRouter()
 
 const handleFold = () => {
-  // collapseState.toggleCollapse()
+  collapseState.toggleCollapse()
 }
 
 const defaultAcatar =
