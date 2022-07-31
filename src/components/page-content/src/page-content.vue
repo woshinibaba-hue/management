@@ -34,6 +34,9 @@
           :disabled="scope.auto === 1"
         />
       </template>
+      <template #link="{ scope }">
+        <a :href="scope.link" target="_blank">友链地址</a>
+      </template>
       <template #cover="{ scope }">
         <el-image
           v-if="scope.cover"
@@ -67,7 +70,6 @@
         >
           编辑
         </el-button>
-
         <el-popconfirm
           title="确认永久删除该数据？"
           v-if="isDelete"
@@ -77,6 +79,14 @@
             <el-button size="small" type="danger"> 删除 </el-button>
           </template>
         </el-popconfirm>
+      </template>
+      <template #linkHandler="{ scope }">
+        <el-button type="primary" @click="emits('check', 1, scope.id)">
+          通过
+        </el-button>
+        <el-button type="danger" @click="emits('check', 2, scope.id)">
+          拒绝
+        </el-button>
       </template>
     </Table>
   </div>
@@ -104,6 +114,7 @@ type IEmits = {
   (e: 'headerClick'): void
   (e: 'changeSize', currentSize: number): void
   (e: 'changePage', currentPage: number): void
+  (e: 'check', status: number, id: number): void
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -119,6 +130,7 @@ const isCreate = usePermission(props.contentTableConfig.pageName, 'create')
 const isUpdate = usePermission(props.contentTableConfig.pageName, 'update')
 const isQuery = usePermission(props.contentTableConfig.pageName, 'query')
 const isDelete = usePermission(props.contentTableConfig.pageName, 'delete')
+
 const changeStatus = (status: number, id: number) => {
   if (id) {
     emits('changeStatus', status, id)

@@ -75,7 +75,7 @@ const handleEditData = (row: articleTypes.IArticle) => {
 const deleteArticle = async (row: any) => {
   await articleServer.deleteByIdArticle(row.id)
   ElMessage.success('删除成功')
-  getArticleListAction()
+  getArticleListAction(pagination)
 }
 
 const pagination = reactive({
