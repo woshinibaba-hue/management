@@ -5,7 +5,7 @@ import { uploadFileImg, getImgList, deleteImg } from '@/server/upload'
 
 const cloudUrl = process.env.VUE_APP_CLOUD_URL
 
-export function useUpload() {
+export function useUpload(isDelete: boolean) {
   const url = ref('')
   const fileList = ref<{ name: string; url: string }[]>([])
 
@@ -70,6 +70,7 @@ export function useUpload() {
   })
 
   const beforeRemove = () => {
+    if (!isDelete) return false
     return new Promise<boolean>((resolve, reject) => {
       ElMessageBox.confirm('您将永久删除该图片吗?', '提示', {
         type: 'warning'
