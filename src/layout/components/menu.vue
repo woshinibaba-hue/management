@@ -44,17 +44,16 @@
 import {
   House,
   Link,
-  PictureRounded,
   ChatDotRound,
   Monitor,
-  Reading
+  Reading,
+  MostlyCloudy
 } from '@element-plus/icons-vue'
 import { useCollapse, useLoginStore } from '@/store'
 const collapseState = useCollapse()
 const loginState = useLoginStore()
-
 const route = useRoute()
-const iconList = [Link, PictureRounded, ChatDotRound, Monitor, Reading]
+const iconList = [Link, MostlyCloudy, ChatDotRound, Monitor, Reading]
 </script>
 
 <style scoped lang="less">
@@ -73,6 +72,10 @@ const iconList = [Link, PictureRounded, ChatDotRound, Monitor, Reading]
   &:hover {
     background-color: #263445 !important;
   }
+}
+
+:deep(.el-menu-item-group__title) {
+  padding: 0;
 }
 
 .menu {

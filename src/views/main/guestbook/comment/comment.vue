@@ -1,9 +1,11 @@
 <template>
   <div class="comment">
-    <h2>留言评论</h2>
+    <PageUpload />
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import PageUpload from '@/components/page-upload/src/page-upload.vue'
+</script>
 
 <style scoped></style>
