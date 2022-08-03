@@ -5,18 +5,18 @@ import { uploadFileImg, getImgList, deleteImg } from '@/server/upload'
 
 const cloudUrl = process.env.VUE_APP_CLOUD_URL
 
-export function useUpload(isDelete: boolean) {
+export function useUpload(isDelete?: boolean, isConfirm?: boolean) {
   const url = ref('')
   const fileList = ref<{ name: string; url: string }[]>([])
 
   // 将图像上传至七牛云
-  const upload = (options: UploadRequestOptions) => {
+  const upload = (options: UploadRequestOptions | File) => {
     return new Promise((resolve, reject) => {
       // 获取七牛云 token
       uploadFileImg().then((res) => {
         const token = res.data.uploadToken
         // 用户上传图片
-        const file = options.file
+        const file = options instanceof File ? options : options.file
 
         // compressImage 压缩图片
         // quality 压缩质量  noCompressIfLarger 为 true 时如果发现压缩后图片大小比原来还大，则返回源图片
@@ -71,6 +71,7 @@ export function useUpload(isDelete: boolean) {
 
   const beforeRemove = () => {
     if (!isDelete) return false
+    if (!isConfirm) return true
     return new Promise<boolean>((resolve, reject) => {
       ElMessageBox.confirm('您将永久删除该图片吗?', '提示', {
         type: 'warning'

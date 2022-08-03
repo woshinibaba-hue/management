@@ -14,13 +14,7 @@
       <div class="avatar">
         <el-avatar :size="130" :src="avatar ? avatar : defaultAvatar" />
       </div>
-      <el-upload
-        action="http://localhost:8888/api/upload/img"
-        name="image"
-        :show-file-list="false"
-        :on-error="handleError"
-        :on-success="handleAvatarSuccess"
-      >
+      <el-upload :show-file-list="false" :http-request="upload">
         <el-button type="primary">上传头像</el-button>
       </el-upload>
     </div>
@@ -37,6 +31,8 @@ import { formConfig } from './config/form'
 
 import { ILoginRes } from '@/server/login/types'
 
+import { useUpload } from '@/hooks'
+
 const loginStore = useLoginStore()
 
 const defaultAvatar =
@@ -52,10 +48,6 @@ if (loginStore.user) {
 
 const formRef = ref<InstanceType<typeof Form>>()
 
-const handleAvatarSuccess = (res: any) => {
-  avatar.value = res.data[0].url
-}
-
 const update = () => {
   formRef.value?.verifyForm(async (valid) => {
     if (valid) {
@@ -69,10 +61,13 @@ const update = () => {
   })
 }
 
-// 图片上传失败
-const handleError = (error: any) => {
-  ElMessage.error(`${JSON.parse(error.message).msg}`)
-}
+const { upload, url } = useUpload()
+
+watchEffect(() => {
+  if (url.value) {
+    avatar.value = url.value
+  }
+})
 </script>
 
 <style scoped lang="less">

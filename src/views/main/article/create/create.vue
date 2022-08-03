@@ -14,8 +14,15 @@
           :titles="['全部标签', '已选择标签']"
         />
       </el-form-item>
-      <el-form-item label="文章封面">
-        <Upload :imgUrl="formData.cover" @handleSuccess="handleSuccess" />
+      <el-form-item label="文章封面" class="cover-uploader">
+        <el-upload
+          :show-file-list="false"
+          :httpRequest="upload"
+          :on-success="handleSuccess"
+        >
+          <img v-if="formData.cover" :src="formData.cover" class="avatar" />
+          <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+        </el-upload>
       </el-form-item>
       <el-form-item label="文章内容" class="content" prop="content">
         <PageEditor
@@ -32,17 +39,19 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import { Plus } from '@element-plus/icons-vue'
 import { FormRules } from 'element-plus'
 
 import { useArticle } from '@/store'
 
 import { publishArticle, updateArticle } from '@/server/article'
-import { uploadFileImg } from '@/server/upload'
 
 import { getTags } from '@/server/tags'
 import { PublishArticleParams } from '@/server/article/types'
 
-import Upload from '@/components/Upload/upload.vue'
+import { useUpload } from '@/hooks'
+
+const { upload, url } = useUpload()
 
 const tags = ref<{ key: number; label: string; disabled: boolean }[]>([])
 
@@ -97,21 +106,31 @@ const release = () => {
 
 // md 上传图片
 const handleUploadImage = async (insertImage: any, files: File[]) => {
+  // 上传至本地服务器
   // 创建 FormData 对象
-  const formData = new FormData()
-  // 将文件添加到 formData 对象
-  formData.append('image', files[0])
-  // 上传图片
-  const res = await uploadFileImg(formData)
-
-  // 将图片插入到编辑器中
-  insertImage({
-    url: res.data[0].url
-  })
+  // const formData = new FormData()
+  // // 将文件添加到 formData 对象
+  // formData.append('image', files[0])
+  // // 上传图片
+  // const res = await uploadFileImg(formData)
+  // // 将图片插入到编辑器中
+  // insertImage({
+  //   url: res.data[0].url
+  // })
+  // 上传至七牛云
+  try {
+    await upload(files[0])
+    console.log(url.value)
+    insertImage({
+      url: url.value
+    })
+  } catch (e) {
+    console.log(e)
+  }
 }
 
-const handleSuccess = (url: string) => {
-  formData.value.cover = url
+const handleSuccess = () => {
+  formData.value.cover = url.value
 }
 
 // 获取标签
@@ -138,9 +157,15 @@ onUnmounted(() => {
   background-color: #fff;
 }
 
-.content {
-  :deep(.el-form-item__content) {
-    display: unset;
+:deep(.el-upload) {
+  width: 150px;
+  height: 150px;
+  border: 1px dashed #e9e9e9;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }
 </style>

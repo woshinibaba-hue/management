@@ -80,4 +80,8 @@ const handleUploadImage = async (
 }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.page-editor {
+  width: 100%;
+}
+</style>
