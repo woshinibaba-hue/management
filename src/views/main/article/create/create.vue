@@ -16,6 +16,9 @@
       </el-form-item>
       <el-form-item label="是否置顶 (默认为不置顶)" prop="isTop">
         <el-switch
+          v-model="formData.isTop"
+          :active-value="1"
+          :inactive-value="0"
           inline-prompt
           active-text="是"
           inactive-text="否"
@@ -24,6 +27,9 @@
       </el-form-item>
       <el-form-item label="是否可评论 (默认为可评论)" prop="isComment">
         <el-switch
+          v-model="formData.isComment"
+          :active-value="1"
+          :inactive-value="0"
           inline-prompt
           active-text="是"
           inactive-text="否"
@@ -79,11 +85,14 @@ const formData = ref<PublishArticleParams>({
   content: '',
   description: '',
   cover: null,
-  tags: []
+  tags: [],
+  isTop: 0,
+  isComment: 1
 })
 
 // 当存在详情时，设置表单数据
 if (articleDetail.value) {
+  console.log(articleDetail.value, '====')
   formData.value = articleDetail.value
 }
 
@@ -105,6 +114,7 @@ const release = () => {
       let res
       if (articleDetail.value) {
         res = await updateArticle(formData.value)
+        console.log(formData.value)
       } else {
         res = await publishArticle(formData.value)
       }
@@ -114,7 +124,9 @@ const release = () => {
         content: '',
         description: '',
         cover: null,
-        tags: []
+        tags: [],
+        isTop: 0,
+        isComment: 1
       }
     }
   })

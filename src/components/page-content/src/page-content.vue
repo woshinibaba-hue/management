@@ -41,6 +41,9 @@
       <template #isTop="{ scope }">
         {{ scope.isTop === 1 ? '是' : '否' }}
       </template>
+      <template #isComment="{ scope }">
+        {{ scope.isComment === 1 ? '是' : '否' }}
+      </template>
       <template #cover="{ scope }">
         <el-image
           v-if="scope.cover"

@@ -27,6 +27,12 @@ export const tableConfig: ITableConfig = {
       slotName: 'isTop'
     },
     {
+      prop: 'isComment',
+      label: '是否可评论',
+      'min-width': 100,
+      slotName: 'isComment'
+    },
+    {
       prop: 'cover',
       label: '文章封面',
       'min-width': 130,
@@ -35,14 +41,20 @@ export const tableConfig: ITableConfig = {
     {
       prop: 'username',
       label: '作者',
-      'min-width': 80,
+      'min-width': 100,
       slotName: 'username'
     },
     {
       prop: 'createtime',
-      label: '创建时间',
-      'min-width': 150,
+      label: '发布时间',
+      'min-width': 180,
       slotName: 'createtime'
+    },
+    {
+      prop: 'updatetime',
+      label: '更新时间',
+      'min-width': 180,
+      slotName: 'updatetime'
     },
     {
       label: '操作',

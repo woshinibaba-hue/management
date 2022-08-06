@@ -9,6 +9,8 @@ export interface IArticle {
   description: string
   tags: ITag[] | null
   user: IUser
+  isTop: number
+  isComment: number
   username?: string
   createtime: string
 }
@@ -26,6 +28,8 @@ export interface PublishArticleParams {
   cover: string | null
   description: string
   tags: number[]
+  isTop: number
+  isComment: number
 }
 
 export type IArticleList = {

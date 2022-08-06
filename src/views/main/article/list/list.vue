@@ -66,7 +66,9 @@ const handleEditData = (row: articleTypes.IArticle) => {
     content: row.content,
     description: row.description,
     cover: row.cover ?? null,
-    tags: row.tags?.map((tag) => tag.id) ?? []
+    tags: row.tags?.map((tag) => tag.id) ?? [],
+    isTop: row.isTop,
+    isComment: row.isComment
   })
   router.push('/main/article/create')
 }
