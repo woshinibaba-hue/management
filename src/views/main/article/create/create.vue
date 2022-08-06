@@ -14,6 +14,22 @@
           :titles="['全部标签', '已选择标签']"
         />
       </el-form-item>
+      <el-form-item label="是否置顶 (默认为不置顶)" prop="isTop">
+        <el-switch
+          inline-prompt
+          active-text="是"
+          inactive-text="否"
+          style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
+        />
+      </el-form-item>
+      <el-form-item label="是否可评论 (默认为可评论)" prop="isComment">
+        <el-switch
+          inline-prompt
+          active-text="是"
+          inactive-text="否"
+          style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
+        />
+      </el-form-item>
       <el-form-item label="文章封面" class="cover-uploader">
         <el-upload
           :show-file-list="false"

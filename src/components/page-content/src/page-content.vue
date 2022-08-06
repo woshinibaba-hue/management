@@ -3,6 +3,7 @@
     <Table
       v-if="data"
       v-bind="contentTableConfig"
+      align="center"
       :tableData="data"
       :isHandler="isDelete || isUpdate"
       :isQuery="isQuery"
@@ -37,6 +38,9 @@
       <template #link="{ scope }">
         <a :href="scope.link" target="_blank">友链地址</a>
       </template>
+      <template #isTop="{ scope }">
+        {{ scope.isTop === 1 ? '是' : '否' }}
+      </template>
       <template #cover="{ scope }">
         <el-image
           v-if="scope.cover"
@@ -47,16 +51,14 @@
         <span v-else>暂无封面</span>
       </template>
       <template #tags="{ scope }">
-        <el-space wrap>
-          <template v-if="scope.tags">
-            <template v-for="tag in scope.tags" :key="tag.id">
-              <el-tag :color="tag.color" style="color: #fff"
-                >{{ tag.name }}
-              </el-tag>
-            </template>
+        <template v-if="scope.tags">
+          <template v-for="tag in scope.tags" :key="tag.id">
+            <el-tag :color="tag.color" style="color: #fff"
+              >{{ tag.name }}
+            </el-tag>
           </template>
-          <template v-else>暂无标签</template>
-        </el-space>
+        </template>
+        <template v-else>暂无标签</template>
       </template>
       <template #color="{ scope }">
         <el-color-picker v-model="scope.color" disabled />

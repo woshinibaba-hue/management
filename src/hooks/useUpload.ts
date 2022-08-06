@@ -21,7 +21,7 @@ export function useUpload(isDelete?: boolean, isConfirm?: boolean) {
         // compressImage 压缩图片
         // quality 压缩质量  noCompressIfLarger 为 true 时如果发现压缩后图片大小比原来还大，则返回源图片
         qiniu
-          .compressImage(file, { quality: 0.92, noCompressIfLarger: true })
+          .compressImage(file, { quality: 1, noCompressIfLarger: true })
           .then((res) => {
             const observable = qiniu.upload(
               res.dist as File,
@@ -91,12 +91,17 @@ export function useUpload(isDelete?: boolean, isConfirm?: boolean) {
     ElMessage.success('删除成功')
   }
 
+  const handlePreview = (uploadFile: UploadFile) => {
+    console.log(uploadFile, 1111)
+  }
+
   return {
     url,
     upload,
     beforeUpload,
     fileList,
     handleRemove,
-    beforeRemove
+    beforeRemove,
+    handlePreview
   }
 }

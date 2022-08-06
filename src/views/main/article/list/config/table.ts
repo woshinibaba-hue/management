@@ -21,6 +21,12 @@ export const tableConfig: ITableConfig = {
       slotName: 'tags'
     },
     {
+      prop: 'isTop',
+      label: '是否置顶',
+      'min-width': 80,
+      slotName: 'isTop'
+    },
+    {
       prop: 'cover',
       label: '文章封面',
       'min-width': 130,
