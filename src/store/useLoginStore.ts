@@ -61,7 +61,9 @@ export const useLoginStore = defineStore('login', {
         this.menu = menu
         storage.set('menu_list', menu)
       }
+
       const routes = mapRouter(menu)
+      console.log(routes, 'routes')
 
       // 先删除所有的动态注册的路由
       router.getRoutes().forEach((item) => {

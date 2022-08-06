@@ -12,10 +12,19 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import { Menu, Main } from './components'
+import { useLink, useLoginStore, useCollapse } from '@/store'
 
-import { useCollapse } from '@/store'
 const collapseState = useCollapse()
+
+const linkStore = useLink()
+const loginStore = useLoginStore()
+const { user } = storeToRefs(loginStore)
+
+if (user.value?.auto === 1) {
+  linkStore.getVerify()
+}
 </script>
 
 <style scoped lang="less">

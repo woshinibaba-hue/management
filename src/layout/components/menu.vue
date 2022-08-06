@@ -12,7 +12,17 @@
         <span>首页</span>
       </el-menu-item>
       <template v-for="menu in loginState.menu" :key="menu.id">
-        <template v-if="menu.type === 1">
+        <template v-if="menu.type === 1 && menu.url">
+          <el-menu-item :index="menu.url">
+            <el-icon>
+              <component
+                :is="iconList[iconList.findIndex((item: any) => item.name === menu.icon)]"
+              />
+            </el-icon>
+            <span>{{ menu.name }}</span>
+          </el-menu-item>
+        </template>
+        <template v-if="menu.type === 1 && !menu.url">
           <el-sub-menu :index="menu.id + ''">
             <template #title>
               <el-icon>
@@ -47,13 +57,14 @@ import {
   ChatDotRound,
   Monitor,
   Reading,
-  MostlyCloudy
+  MostlyCloudy,
+  Odometer
 } from '@element-plus/icons-vue'
 import { useCollapse, useLoginStore } from '@/store'
 const collapseState = useCollapse()
 const loginState = useLoginStore()
 const route = useRoute()
-const iconList = [Link, MostlyCloudy, ChatDotRound, Monitor, Reading]
+const iconList = [Link, MostlyCloudy, ChatDotRound, Monitor, Reading, Odometer]
 </script>
 
 <style scoped lang="less">

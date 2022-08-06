@@ -27,17 +27,34 @@ export function mapRouter(userMenu: IMenu[]) {
   // 3. 从当前用户菜单中获取当前用户的路由表信息
   const _recurRoute = (menu: IMenu[]) => {
     for (const route of menu) {
-      if (route.type === 2) {
-        // 将路由信息添加到 routers 中
+      if (route.url) {
+        // 当 url 存在，表示当前菜单是一级路由菜单
         const router = allRouter.find((item) => item.path === route.url)
         if (router) {
           routers.push(router)
         }
       } else {
-        // 如果不是菜单，则递归获取子菜单
+        // 包含子级路由，则递归查找
         _recurRoute(route.children)
       }
     }
+
+    // 下面方案是后台当初没有一级路由的时候使用的
+    // for (const route of menu) {
+    //   if (route.type === 1) {
+    //     console.log(111)
+    //   } else if (route.type === 2) {
+    //     // 将路由信息添加到 routers 中
+    //     const router = allRouter.find((item) => item.path === route.url)
+    //     if (router) {
+    //       routers.push(router)
+    //     }
+    //   } else {
+    //     console.log(route, '======================')
+    //     // 如果不是菜单，则递归获取子菜单
+    //     _recurRoute(route.children)
+    //   }
+    // }
   }
 
   _recurRoute(userMenu)
