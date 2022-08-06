@@ -16,7 +16,7 @@ export const tableConfig: ITableConfig = {
     },
     {
       prop: 'color',
-      label: '标签背景色',
+      label: '标签示例',
       'min-width': 100,
       slotName: 'color'
     },

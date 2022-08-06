@@ -31,6 +31,7 @@
             v-bind="item"
             align="center"
             show-overflow-tooltip
+            :fixed="item.slotName === 'handler' ? 'right' : false"
             v-if="item.slotName !== 'handler' || isHandler"
           >
             <template #default="scope">

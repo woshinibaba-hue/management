@@ -61,7 +61,9 @@
         <template v-else>暂无标签</template>
       </template>
       <template #color="{ scope }">
-        <el-color-picker v-model="scope.color" disabled />
+        <el-tag :color="scope.color" style="color: #fff">
+          {{ scope.name }}
+        </el-tag>
       </template>
       <template #handler="{ scope }">
         <el-button

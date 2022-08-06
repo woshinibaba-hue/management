@@ -21,6 +21,12 @@ export const tableConfig: ITableConfig = {
       slotName: 'mobile'
     },
     {
+      prop: 'referral',
+      label: '个性签名',
+      'min-width': 100,
+      slotName: 'referral'
+    },
+    {
       prop: 'role_name',
       label: '角色',
       'min-width': 100,
@@ -34,7 +40,7 @@ export const tableConfig: ITableConfig = {
     },
     {
       prop: 'createtime',
-      label: '创建时间',
+      label: '注册时间',
       'min-width': 200,
       slotName: 'createtime'
     },

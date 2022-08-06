@@ -14,6 +14,11 @@ export const dialogConfig: FormConfig = {
       lable: '标签颜色'
     },
     {
+      field: 'tag',
+      type: 'tag',
+      lable: '标签示例'
+    },
+    {
       field: 'parent_id',
       type: 'select',
       lable: '所属标签',

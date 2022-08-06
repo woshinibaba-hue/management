@@ -53,6 +53,11 @@
                   color-format="rgb"
                 />
               </template>
+              <template v-else-if="item.type === 'tag' && formData.color">
+                <el-tag :color="formData.color" style="color: #fff">
+                  {{ formData.name ?? '展示示例' }}
+                </el-tag>
+              </template>
             </el-form-item>
           </el-col>
         </template>
@@ -118,6 +123,7 @@ const formData = ref({ ...props.modelValue })
 watch(
   formData,
   (newValue) => {
+    console.log(newValue)
     emits('update:modelValue', newValue)
   },
   {

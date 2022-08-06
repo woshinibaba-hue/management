@@ -9,6 +9,7 @@ type Type =
   | 'textarea'
   | 'upload'
   | 'colorpicker'
+  | 'tag'
 
 export type fromItem = {
   field: string
