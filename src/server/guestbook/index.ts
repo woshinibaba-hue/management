@@ -4,7 +4,7 @@ import * as guestbookType from './types'
 
 // 查询留言
 export const getGuestbook = (params: any) => {
-  return request.get<guestbookType.IGuestbook[]>({
+  return request.get<{ count: number; data: guestbookType.IGuestbook[] }>({
     url: '/guestbook',
     params
   })

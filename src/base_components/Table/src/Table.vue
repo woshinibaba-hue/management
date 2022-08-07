@@ -13,6 +13,8 @@
         max-height="500px"
         border
         stripe
+        row-key="id"
+        :tree-props="{ children: 'children' }"
       >
         <el-table-column
           v-if="showColumnSelection"
@@ -45,6 +47,7 @@
         </template>
       </el-table>
     </div>
+
     <div class="footer" v-if="showFooter && isQuery">
       <el-pagination
         :page-sizes="[10, 20, 30, 40]"

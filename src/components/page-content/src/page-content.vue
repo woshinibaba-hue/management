@@ -20,6 +20,9 @@
       <template #createtime="{ scope }">
         {{ format.formDate(scope.createtime) }}
       </template>
+      <template #parent_comment="{ scope }">
+        {{ scope?.parent_comment?.content ?? '该留言是顶级留言' }}
+      </template>
       <template #status="{ scope }">
         <el-switch
           :active-value="1"
@@ -34,6 +37,9 @@
           @change="changeStatus($event as number, scope.id)"
           :disabled="scope.auto === 1"
         />
+      </template>
+      <template #user="{ scope }">
+        {{ scope.user.username }}
       </template>
       <template #link="{ scope }">
         <a :href="scope.link" target="_blank">友链地址</a>

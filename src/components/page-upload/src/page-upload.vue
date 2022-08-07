@@ -1,13 +1,13 @@
 <template>
   <!--  http-request 自定义 图像上传方法 -->
   <el-upload
-    :show-file-list="false"
+    v-model:file-list="fileList"
+    list-type="picture"
     class="avatar-uploader"
     :http-request="upload"
     :before-upload="beforeUpload"
     :before-remove="beforeRemove"
     :on-remove="handleRemove"
-    :on-preview="handlePreview"
   >
     <el-button type="primary" v-if="isUpload">上传图片</el-button>
   </el-upload>
@@ -25,12 +25,6 @@ const isDelete = usePermission('img', 'delete')
 
 const { upload, beforeUpload, fileList, handleRemove, beforeRemove } =
   useUpload(isDelete)
-
-console.log(fileList.value)
-
-const handlePreview = () => {
-  console.log()
-}
 </script>
 
 <style scoped lang="less">

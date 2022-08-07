@@ -8,7 +8,12 @@ export interface IGuestbookParams {
 export interface IGuestbook {
   id: number
   content: string
-  like_count: number
+  createtime: string
   user: IUser
-  username?: string
+  parentId: number | null
+  parent_comment?: {
+    content: string
+    username: string
+  }
+  children: IGuestbook[]
 }

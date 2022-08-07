@@ -1,5 +1,5 @@
 <template>
-  <div class="list">
+  <div class="guestbook">
     <PageSearch
       v-model="searchParams"
       :search-config="searchConfig"
@@ -38,7 +38,7 @@ import * as guestbookTypes from '@/server/guestbook/types'
 // 控制弹窗展示
 const dialogFormVisible = ref(false)
 
-const title = ref('添加留言')
+const title = ref('添加留言 (暂时只能添加顶级留言)')
 
 const searchParams = ref<guestbookTypes.IGuestbookParams>()
 
@@ -51,11 +51,9 @@ const getGuestbookList = async (
 ) => {
   const res = await guestbookServer.getGuestbook(params)
 
-  res.data.forEach((item) => {
-    item.username = item.user.username ?? '未知'
-  })
-  guestbookList.value = res.data
+  guestbookList.value = res.data.data
 }
+
 getGuestbookList()
 
 // 搜索留言
@@ -65,7 +63,7 @@ const search = () => {
 
 // 弹窗展示
 const createCb = () => {
-  title.value = '添加留言'
+  title.value = '添加留言 (暂时只能添加顶级留言)'
   dialogFormVisible.value = true
 }
 const editCb = () => {
@@ -99,4 +97,4 @@ const deleteGuestbook = async (row: guestbookTypes.IGuestbook) => {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped></style>

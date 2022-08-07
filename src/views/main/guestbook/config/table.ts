@@ -3,26 +3,31 @@ import { ITableConfig } from '@/base_components/Table/types'
 export const tableConfig: ITableConfig = {
   tableConfig: [
     {
+      label: '展开可看留言评论',
+      'min-width': 110,
+      slotName: 'expand'
+    },
+    {
       prop: 'content',
       label: '留言内容',
       'min-width': 200,
       slotName: 'content'
     },
     {
-      prop: 'like_count',
-      label: '留言点赞数',
-      'min-width': 80,
-      slotName: 'like_count'
+      prop: 'parent_comment',
+      label: '被回复的留言信息',
+      'min-width': 200,
+      slotName: 'parent_comment'
     },
     {
-      prop: 'username',
+      prop: 'user',
       label: '留言人',
       'min-width': 100,
-      slotName: 'username'
+      slotName: 'user'
     },
     {
       prop: 'createtime',
-      label: '创建时间',
+      label: '留言时间',
       'min-width': 150,
       slotName: 'createtime'
     },
