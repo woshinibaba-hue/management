@@ -1,61 +1,61 @@
 <template>
-  <div class="line" ref="echartRef"></div>
+  <ZEChart :option="option" />
 </template>
 
 <script setup lang="ts">
 import * as echarts from 'echarts'
-type EChartsOption = echarts.EChartsOption
+import ZEChart from '@/base_components/Echart'
+import { ComputedRef } from 'vue'
 
-const echartRef = ref<HTMLDivElement>()
+const props = defineProps<{
+  title?: string
+  xAxis: string[]
+  pv: { name: string; value: number }[]
+  uv: { name: string; value: number }[]
+  options?: echarts.EChartsCoreOption | echarts.EChartsOption
+}>()
 
-type IProps = {
-  title?: string // 图表标题
-  legendData?: { name: string }[] // 图例数据
-  series: echarts.SeriesOption | echarts.SeriesOption[] // 系列数据
-  otherOpthion?: EChartsOption
-  xAxisData?: string[] // x轴数据
-  isShowXAxis?: boolean // 是否显示x轴
-  tooltipTrigger?: 'item' | 'axis' | 'none'
-}
-
-const props = withDefaults(defineProps<IProps>(), {
-  title: '',
-  isShowXAxis: true,
-  tooltipTrigger: 'axis'
-})
-
-onMounted(() => {
-  if (!echartRef.value) return
-  const myChart = echarts.init(echartRef.value)
-  const option: EChartsOption = {
+const option: ComputedRef<echarts.EChartsOption | echarts.EChartsCoreOption> =
+  computed(() => ({
     title: {
       text: props.title
     },
     tooltip: {
-      trigger: props.tooltipTrigger
+      trigger: 'axis'
     },
-    legend: {
-      data: props.legendData
+    legend: {},
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    toolbox: {
+      feature: {
+        saveAsImage: {}
+      }
     },
     xAxis: {
-      show: props.isShowXAxis,
       type: 'category',
-      boundaryGap: false,
-      data: props.xAxisData
+      boundaryGap: true,
+      data: props.xAxis
     },
     yAxis: {
       type: 'value'
     },
-    series: props.series
-  }
-
-  myChart.setOption(option)
-})
+    series: [
+      {
+        name: '浏览量 PV',
+        type: 'line',
+        data: props.pv
+      },
+      {
+        name: '访客量 UV',
+        type: 'line',
+        data: props.uv
+      }
+    ]
+  }))
 </script>
 
-<style scoped>
-.line {
-  width: 100%;
-  height: 300px;
-}
-</style>
+<style scoped></style>

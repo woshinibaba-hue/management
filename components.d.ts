@@ -48,6 +48,7 @@ declare module '@vue/runtime-core' {
     PageEditor: typeof import('./src/components/page-editor/src/page-editor.vue')['default']
     PageSearch: typeof import('./src/components/page-search/src/page-search.vue')['default']
     PageUpload: typeof import('./src/components/page-upload/src/page-upload.vue')['default']
+    Pie: typeof import('./src/components/page-echarts/src/Pie.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
