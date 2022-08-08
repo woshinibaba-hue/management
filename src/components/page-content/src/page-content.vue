@@ -23,6 +23,11 @@
       <template #parent_comment="{ scope }">
         {{ scope?.parent_comment?.content ?? '该留言是顶级留言' }}
       </template>
+      <template #error="{ scope }">
+        <el-tag :type="scope.errormessage ? 'danger' : 'success'">
+          {{ scope.errormessage ? '请求失败' : '请求成功' }}
+        </el-tag>
+      </template>
       <template #status="{ scope }">
         <el-switch
           :active-value="1"

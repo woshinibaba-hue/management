@@ -58,13 +58,23 @@ import {
   Monitor,
   Reading,
   MostlyCloudy,
-  Odometer
+  Odometer,
+  Document
 } from '@element-plus/icons-vue'
+
 import { useCollapse, useLoginStore } from '@/store'
 const collapseState = useCollapse()
 const loginState = useLoginStore()
 const route = useRoute()
-const iconList = [Link, MostlyCloudy, ChatDotRound, Monitor, Reading, Odometer]
+const iconList = [
+  Link,
+  MostlyCloudy,
+  ChatDotRound,
+  Monitor,
+  Reading,
+  Odometer,
+  Document
+]
 </script>
 
 <style scoped lang="less">

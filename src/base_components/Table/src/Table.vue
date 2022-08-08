@@ -48,7 +48,7 @@
       </el-table>
     </div>
 
-    <div class="footer" v-if="showFooter && isQuery">
+    <div class="footer" v-if="showFooter">
       <el-pagination
         :page-sizes="[10, 20, 30, 40]"
         background

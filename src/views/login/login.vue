@@ -18,7 +18,8 @@ import { LoginInterface } from './components'
   overflow: hidden;
 
   // background: url(~@/assets/images/login-bg.jpg) no-repeat center;
-  background: url(~@/assets/images/bg_login.png) no-repeat center;
+  background: url(http://rfz86pha6.hn-bkt.clouddn.com/Fnfz7mWf8YNJoKbFRmleevA4WJ2T)
+    no-repeat center;
   background-size: cover;
 
   &::after {
