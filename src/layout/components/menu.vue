@@ -49,8 +49,6 @@
 </template>
 
 <script setup lang="ts">
-// import { useRoute } from 'vue-router'
-
 import {
   House,
   Link,
@@ -59,7 +57,8 @@ import {
   Reading,
   MostlyCloudy,
   Odometer,
-  Document
+  Document,
+  Wallet
 } from '@element-plus/icons-vue'
 
 import { useCollapse, useLoginStore } from '@/store'
@@ -73,7 +72,8 @@ const iconList = [
   Monitor,
   Reading,
   Odometer,
-  Document
+  Document,
+  Wallet
 ]
 </script>
 

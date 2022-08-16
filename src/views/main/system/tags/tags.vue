@@ -21,22 +21,11 @@
       :title="title"
       :default-form-data="defaultFormData"
       @confirm="dialogConfirm"
-    >
-      <el-upload
-        class="cover-uploader"
-        :show-file-list="false"
-        :httpRequest="upload"
-        :on-success="handleSuccess"
-      >
-        <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-        <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-      </el-upload>
-    </PageDialog>
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { Plus } from '@element-plus/icons-vue'
 import { searchConfig } from './config/search'
 import { tableConfig } from './config/table'
 import { dialogConfig } from './config/dialog'
@@ -44,12 +33,11 @@ import { dialogConfig } from './config/dialog'
 import { storeToRefs } from 'pinia'
 import { useTags } from '@/store/useTags'
 
-import { usePageDialog, useUpload } from '@/hooks'
+import { usePageDialog } from '@/hooks'
 
 import { ITag } from '@/server/tags/type'
 
 const searchParams = ref<{ name: string }>({ name: '' })
-const { upload, url } = useUpload()
 
 const title = ref('新增标签')
 
@@ -82,10 +70,9 @@ const createCb = () => {
   title.value = '新增标签'
 }
 
-const editCb = (row: ITag) => {
+const editCb = () => {
   dialogFormVisible.value = true
   title.value = '编辑标签'
-  imageUrl.value = row.cover
 }
 
 const { handleEditData, defaultFormData, handleNewData } = usePageDialog<ITag>(
@@ -116,10 +103,6 @@ const dialogConfirm = (formData: any) => {
 // 点击删除按钮触发
 const handleDeleteData = (row: ITag) => {
   tagStore.deleteTag(row.id!)
-}
-
-const handleSuccess = () => {
-  imageUrl.value = url.value
 }
 
 watchEffect(() => {

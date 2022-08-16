@@ -24,11 +24,6 @@ export const dialogConfig: FormConfig = {
       lable: '所属标签',
       placeholder: '请选择所属标签, 如果是一级标签, 无需选择',
       options: []
-    },
-    {
-      field: 'image',
-      type: 'upload',
-      lable: '标签封面'
     }
   ],
   colLayout: {

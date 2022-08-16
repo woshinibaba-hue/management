@@ -55,6 +55,12 @@ export const tableConfig: ITableConfig = {
       label: '携带的body参数',
       'min-width': 110,
       slotName: 'body'
+    },
+    {
+      prop: 'createtime',
+      label: '访问时间',
+      'min-width': 150,
+      slotName: 'createtime'
     }
   ],
   showColumnIndex: true,

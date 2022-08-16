@@ -47,7 +47,7 @@
         {{ scope.user.username }}
       </template>
       <template #link="{ scope }">
-        <a :href="scope.link" target="_blank">友链地址</a>
+        <a :href="scope.link" target="_blank">地址</a>
       </template>
       <template #isTop="{ scope }">
         {{ scope.isTop === 1 ? '是' : '否' }}

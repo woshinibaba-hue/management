@@ -3,11 +3,13 @@
   <el-upload
     v-model:file-list="fileList"
     list-type="picture"
+    :show-file-list="showList"
     class="avatar-uploader"
     :http-request="upload"
     :before-upload="beforeUpload"
     :before-remove="beforeRemove"
     :on-remove="handleRemove"
+    :on-success="handleSuccess"
   >
     <el-button type="primary" v-if="isUpload">上传图片</el-button>
   </el-upload>
@@ -20,11 +22,27 @@
 <script setup lang="ts">
 import { useUpload, usePermission } from '@/hooks'
 
+type IProps = {
+  showList?: boolean
+}
+
 const isUpload = usePermission('img', 'create')
 const isDelete = usePermission('img', 'delete')
 
-const { upload, beforeUpload, fileList, handleRemove, beforeRemove } =
+const { upload, beforeUpload, fileList, handleRemove, beforeRemove, url } =
   useUpload(isDelete)
+
+const emits = defineEmits<{
+  (e: 'success', url: string): void
+}>()
+
+withDefaults(defineProps<IProps>(), {
+  showList: true
+})
+
+const handleSuccess = () => {
+  emits('success', url.value)
+}
 </script>
 
 <style scoped lang="less">

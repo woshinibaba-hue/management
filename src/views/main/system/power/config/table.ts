@@ -4,15 +4,15 @@ export const tableConfig: ITableConfig = {
   tableConfig: [
     {
       prop: 'name',
-      label: '标签名称',
+      label: '角色名称',
       'min-width': 100,
       slotName: 'name'
     },
     {
-      prop: 'color',
-      label: '标签示例',
-      'min-width': 100,
-      slotName: 'color'
+      prop: 'intro',
+      label: '角色描述',
+      'min-width': 200,
+      slotName: 'intro'
     },
     {
       prop: 'createtime',
@@ -28,8 +28,8 @@ export const tableConfig: ITableConfig = {
   ],
   showColumnIndex: true,
   showColumnSelect: false,
-  title: '标签管理',
+  title: '角色管理',
   showFooter: false,
-  addBtnText: '添加标签',
-  pageName: 'tag'
+  addBtnText: '添加角色',
+  pageName: 'role'
 }
