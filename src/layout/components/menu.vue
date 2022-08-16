@@ -15,9 +15,7 @@
         <template v-if="menu.type === 1 && menu.url">
           <el-menu-item :index="menu.url">
             <el-icon>
-              <component
-                :is="iconList[iconList.findIndex((item: any) => item.name === menu.icon)]"
-              />
+              <component :is="format.formatIcon(menu.icon)" />
             </el-icon>
             <span>{{ menu.name }}</span>
           </el-menu-item>
@@ -26,9 +24,7 @@
           <el-sub-menu :index="menu.id + ''">
             <template #title>
               <el-icon>
-                <component
-                  :is="iconList[iconList.findIndex((item: any) => item.name === menu.icon)]"
-                />
+                <component :is="format.formatIcon(menu.icon)" />
               </el-icon>
               <span>{{ menu.name }}</span>
             </template>
@@ -49,32 +45,14 @@
 </template>
 
 <script setup lang="ts">
-import {
-  House,
-  Link,
-  ChatDotRound,
-  Monitor,
-  Reading,
-  MostlyCloudy,
-  Odometer,
-  Document,
-  Wallet
-} from '@element-plus/icons-vue'
+import { House } from '@element-plus/icons-vue'
+
+import { format } from '@/utils/format'
 
 import { useCollapse, useLoginStore } from '@/store'
 const collapseState = useCollapse()
 const loginState = useLoginStore()
 const route = useRoute()
-const iconList = [
-  Link,
-  MostlyCloudy,
-  ChatDotRound,
-  Monitor,
-  Reading,
-  Odometer,
-  Document,
-  Wallet
-]
 </script>
 
 <style scoped lang="less">

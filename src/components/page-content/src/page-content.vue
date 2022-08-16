@@ -106,6 +106,14 @@
           拒绝
         </el-button>
       </template>
+      <template #type="{ scope }">
+        <el-tag class="ml-2" :type="formatType(scope.type)">
+          {{ scope.type }}级菜单
+        </el-tag>
+      </template>
+      <template #icon="{ scope }">
+        <component style="width: 20px" :is="format.formatIcon(scope.icon)" />
+      </template>
     </Table>
   </div>
 </template>
@@ -171,6 +179,18 @@ const changeSize = (size: number) => {
 defineExpose({
   isQuery
 })
+
+// 权限数据格式化
+const formatType = (type: number) => {
+  switch (type) {
+    case 1:
+      return 'success'
+    case 2:
+      return 'warning'
+    default:
+      return 'danger'
+  }
+}
 </script>
 
 <style scoped lang="less">
